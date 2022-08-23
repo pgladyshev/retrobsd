@@ -1,0 +1,21 @@
+LA(1)			    General Commands Manual			 LA(1)
+
+
+
+NNAAMMEE
+       la - print 1, 5 and 15 minute system load averages
+
+SSYYNNOOPPSSIISS
+       llaa
+
+DDEESSCCRRIIPPTTIIOONN
+       _l_a prints the one, five and fifteen minute system load averages.	 These
+       averages	represent the average number of	runnable jobs  for  the	 indi-
+       cated time period.
+
+SSEEEE AALLSSOO
+       w(1)
+
+
+
+3rd Berkeley Distribution	 June 20, 1987				 LA(1)

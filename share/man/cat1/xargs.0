@@ -1,0 +1,73 @@
+XARGS(1)		    General Commands Manual		      XARGS(1)
+
+
+
+NNAAMMEE
+       xargs - construct argument list(s) and execute utility
+
+SSYYNNOOPPSSIISS
+       xxaarrggss [ --tt ][[ --xx ] --nn nnuummbbeerr ][	--ss ssiizzee	][ uuttiilliittyy [ aarrgguummeennttss_._._.  ]]
+
+DDEESSCCRRIIPPTTIIOONN
+       The  xxaarrggss  utility reads space,	tab, newline and end-of-file delimited
+       arguments from the standard input and executes  the  specified  uuttiilliittyy
+       with them as arguments.
+
+       The  utility  and any arguments specified on the	command	line are given
+       to the uuttiilliittyy upon each	invocation, followed by	 some  number  of  the
+       arguments read from standard input.  The	uuttiilliittyy	is repeatedly executed
+       until standard input is exhausted.
+
+       Spaces, tabs and	newlines may be	embedded  in  arguments	 using	single
+       (`` ' '')  or  double  (``"'')  quotes  or backslashes (``\'').	Single
+       quotes escape all non-single quote characters, excluding	 newlines,  up
+       to  the	matching  single  quote.   Double quotes escape	all non-double
+       quote characters, excluding newlines, up	to the matching	double	quote.
+       Any  single  character,	including  newlines, may be escaped by a back-
+       slash.
+
+       The options are as follows:
+
+       --nn number Set the maximum number	of arguments taken from	standard input
+		 for each invocation of	the utility.  An invocation of uuttiilliittyy
+		 will use less than nnuummbbeerr standard  input  arguments  if  the
+		 number	 of  bytes  accumulated	(see the ss option) exceeds the
+		 specified ssiizzee	or  there  are	fewer  than  nnuummbbeerr  arguments
+		 remaining  for	 the  last invocation of uuttiilliittyy_.  The current
+		 default value for nnuummbbeerr is 5000.
+
+       --ss size	 Set the maximum number	of bytes for the command  line	length
+		 provided  to  uuttiilliittyy_.	  The sum of the length	of the utility
+		 name and the arguments	passed to uuttiilliittyy (including _/_d_e_v_/_n_u_l_l
+		 terminators)  will be less than or equal to this number.  The
+		 current default value for ssiizzee	is ARG_MAX - 2048.
+
+       --tt	 Echo the command to be	executed to standard error immediately
+		 before	it is executed.
+
+       --xx	 Force	xxaarrggss  to terminate immediately	if a command line con-
+		 taining nnuummbbeerr	arguments will not fit in  the	specified  (or
+		 default) command line length.
+
+       If no uuttiilliittyy is	specified, echo(1) is used.
+
+       Undefined behavior may occur if uuttiilliittyy reads from the standard input.
+
+       The  xxaarrggss  utility  exits  immediately (without	processing any further
+       input) if a  command  line  cannot  be  assembled,  uuttiilliittyy  cannot  be
+       invoked,	 an  invocation	of the utility is terminated by	a signal or an
+       invocation of the utility exits with a value of 255.
+
+       The xxaarrggss utility exits with a value of 0 if no error occurs.  If uuttiill--
+       iittyy  cannot  be invoked,	xxaarrggss exits with a value of 127.  If any other
+       error occurs, xxaarrggss exits with a	value of 1.
+
+SSEEEE AALLSSOO
+       echo(1),	find(1)
+
+SSTTAANNDDAARRDDSS
+       The xxaarrggss utility is expected to	be IEEE	Std 1003.2("POSIX") compliant.
+
+
+
+				 June 6, 1993			      XARGS(1)

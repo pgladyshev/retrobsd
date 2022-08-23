@@ -1,0 +1,26 @@
+STRIP(1)		    General Commands Manual		      STRIP(1)
+
+
+
+NNAAMMEE
+       strip - remove symbols and relocation bits
+
+SSYYNNOOPPSSIISS
+       ssttrriipp name ...
+
+DDEESSCCRRIIPPTTIIOONN
+       _S_t_r_i_p  removes the symbol table and relocation bits ordinarily attached
+       to the output of	the assembler and loader.   This  is  useful  to  save
+       space after a program has been debugged.
+
+       The effect of _s_t_r_i_p is the same as use of the --ss	option of _l_d.
+
+FFIILLEESS
+       /tmp/stm? temporary file
+
+SSEEEE AALLSSOO
+       ld(1)
+
+
+
+7th Edition			April 29, 1985			      STRIP(1)

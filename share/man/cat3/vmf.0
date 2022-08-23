@@ -1,0 +1,120 @@
+VMF(3)			   Library Functions Manual			VMF(3)
+
+
+
+NNAAMMEE
+       vminit,	 vmopen,   vmclose,   vmmapseg,	 vmmodify,  vmlock,  vmunlock,
+       vmclrseg, vmflush, - disk based virtual memory routines
+
+SSYYNNOOPPSSIISS
+       ##iinncclluuddee	<<vvmmff..hh>>
+
+       ssttrruucctt vvssppaaccee {{
+	    iinntt	    vv__ffdd;;	    //** ffiillee ffoorr	sswwaappppiinngg **//
+	    ooffff__tt   vv__ffooffffsseett;;	    //** ooffffsseett ffoorr ccoommppuuttiinngg ffiillee aaddddrreesssseess **//
+	    iinntt	    vv__mmaaxxsseeggnnoo;;	    //** nnuummbbeerr ooff sseeggmmeennttss iinn tthhiiss ssppaaccee	**//
+	    }};;
+
+       ssttrruucctt	 vvsseegg {{			   //** ssttrruuccttuurree	ooff aa sseeggmmeenntt iinn	mmeemmoorryy **//
+	    ssttrruucctt    ddlliinnkk	ss__lliinnkk;;	       //** ffoorr lliinnkkiinngg iinnttoo llrruu lliisstt **//
+	    iinntt	 ss__sseeggnnoo;;	     //**	sseeggmmeenntt	nnuummbbeerr **//
+	    ssttrruucctt    vvssppaaccee	**ss__vvssppaaccee;;	//** wwhhiicchh vviirrttuuaall ssppaaccee **//
+	    iinntt	 ss__lloocckk__ccoouunntt;;
+	    iinntt	    ss__ffllaaggss;;
+	    uunniioonn
+		 {{
+		 iinntt  __wwiinnffoo[[WWOORRDDSSPPEERRSSEEGG]];;     //** tthhee aaccttuuaall sseeggmmeenntt **//
+		 cchhaarr __cciinnffoo[[BBYYTTEESSPPEERRSSEEGG]];;
+		 }} vv__uunn;;
+	    }};;
+       ##ddeeffiinnee	 ss__wwiinnffoo   vv__uunn..__wwiinnffoo
+       ##ddeeffiinnee	 ss__cciinnffoo   vv__uunn..__cciinnffoo
+
+       iinntt  vvmmiinniitt((nnsseegg));;
+	    iinntt	nnsseegg;;
+
+       iinntt  vvmmooppeenn((ssppaaccee,, ffiilleennaammee));;
+	    ssttrruucctt vvssppaaccee **ssppaaccee;;
+	    cchhaarr **ffiilleennaammee;;
+
+       ssttrruucctt	 vvsseegg **vvmmmmaappsseegg((ssppaaccee,, sseeggnnoo));;
+	    ssttrruucctt    vvssppaaccee	**ssppaaccee;;
+	    iinntt	 sseeggnnoo;;
+
+       vvooiidd vvmmlloocckk((sseegg));;
+	    ssttrruucctt    vvsseegg **sseegg;;
+
+       vvooiidd vvmmuunnlloocckk((sseegg));;
+	    ssttrruucctt    vvsseegg **sseegg;;
+
+       vvooiidd vvmmccllrrsseegg((sseegg));;
+	    ssttrruucctt    vvsseegg **sseegg;;
+
+       vvooiidd vvmmmmooddiiffyy((sseegg));;
+
+       vvooiidd vvmmfflluusshh(());;
+
+       vvooiidd vvmmcclloossee((ssppaaccee));;
+	    ssttrruucctt    vvssppaaccee **ssppaaccee;;
+
+DDEESSCCRRIIPPTTIIOONN
+       This library provides a standard	set of	routines  for  managing	 large
+       virtual	memory	spaces.	  It  supports creation	of multiple concurrent
+       virtual	spaces,	 mapping  of  virtual  pages  into  real   memory,   a
+       lock/unlock  mechanism,	and  a	capability  to clear specified virtual
+       pages.
+
+       _v_m_i_n_i_t _-	This routine initializes the virtual memory system by  setting
+       up  the	pool of	in-memory segment buffers.  The	argument to this func-
+       tion is the number of memory segments to	allocate (typically 4 to 8 but
+       can  be	higher	as long	as memory can be malloc'd).  It	must be	called
+       before any other	"libvmf" routine is called.
+
+       _v_m_o_p_e_n _-	For each virtual space that a program uses, the	 program  must
+       allocate	 an  instance  of the space structure ('struct vspace').  This
+       routine is used to initialize a virtual space structure using the spec-
+       ified  address  of a space structure and	the name of the	file that will
+       serve as	swap file for the space.  If the second	argument  is  NNUULLLL  an
+       invisible temporary file	is used	rather than a named (permanent)	file.
+
+       _v_m_c_l_o_s_e _-  This routine is used to close	the UNIX file descriptor asso-
+       ciated with the swap file for a virtual space.  Any modified  in-memory
+       segments	 belonging  to	the specified address space are	flushed	to the
+       paging file.
+
+       _v_m_m_a_p_s_e_g	_- This routine is the primary interface	to the virtual	memory
+       mechanism.  It is executed with a specified virtual space address and a
+       segment number (between 0 and 511), and returns a pointer to an in-mem-
+       ory page	containing the specified segment.
+
+       _v_m_m_o_d_i_f_y	_- Whenever a program modifies the data of a segment, it	is the
+       program's responsibility	to inform the virtual  memory  system  of  the
+       modification.   This  function  is also available as a macro (VVMMMMOODDIIFFYY)
+       for use in-line.
+
+       _v_m_l_o_c_k _-	This routine increments	the lock count of the  specified  seg-
+       ment  buffer.   A buffer	with a nonzero lock count is _l_o_c_k_e_d and	cannot
+       be swapped out.
+
+       _v_m_u_n_l_o_c_k	_- This routine decrements the lock count of the	specified buf-
+       fer.   It  is  a	 serious error to decrement the	count below zero (lock
+       underflow).
+
+       _v_m_c_l_r_s_e_g	_- This routine clears the user data area (page)	of the	speci-
+       fied  segment buffer.  _v_m_f_l_u_s_h _-	This routine simply swaps out all seg-
+       ments that are marked as	modified.
+
+BBUUGGSS
+       Not as transparent (or as fast) as a larger hardware address space.
+
+       There is	no automatic segment crossing capability, the application must
+       check  if a _v_i_r_t_u_a_l _a_d_d_r_e_s_s crosses page/segment	boundaries and perform
+       a _v_m_m_a_p_s_e_g call.
+
+SSEEEE AALLSSOO
+       There is	a nroff	document (using	the -ms	macros)	in the	_l_i_b_v_m_f	source
+       directory which goes into more details about the	vvmm functions.
+
+
+
+4.3 Berkeley Distribution     September	24, 1993			VMF(3)

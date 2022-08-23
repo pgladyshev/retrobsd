@@ -1,0 +1,180 @@
+m4(1)			    General Commands Manual			 m4(1)
+
+
+
+NNAAMMEE
+       m4 - macro processor
+
+SSYYNNOOPPSSIISS
+       m4 [ -Dnnaammee[==vvaalluuee]] [-Unnaammee] [files ...]
+
+DDEESSCCRRIIPPTTIIOONN
+       _m_4 is a macro processor intended	as a front end for any language	(e.g.,
+       C, ratfor, fortran, lex,	and yacc).  _m_4 reads from the  standard	 input
+       and  writes  the	 processed  text  to the standard output.  Each	of the
+       optional	argument files is processed in order.
+
+       Macro calls have	the form
+
+	    name(arg1,arg2, . .	. , argn)
+
+       The `(' must immediately	follow the name	of the macro.	If  a  defined
+       macro name is not followed by a `(', it is deemed to have no arguments.
+       Leading unquoted	blanks,	tabs, and newlines are ignored while  collect-
+       ing  arguments.	 Potential  macro names	consist	of alphabetic letters,
+       digits, and underscore `_', where the first character is	not a digit.
+
+       Left and	right single quotes (`') are used to quote strings.  The value
+       of a quoted string is the string	stripped of the	quotes.
+
+       When a macro name is recognized,	its arguments are collected by search-
+       ing for a matching right	parenthesis.  Macro evaluation	proceeds  nor-
+       mally  during  the collection of	the arguments, and any commas or right
+       parentheses which happen	to turn	up within the value of a  nested  call
+       are  as	effective as those in the original input text.	After argument
+       collection, the value of	the macro is pushed back onto the input	stream
+       and rescanned.
+
+       -Dnnaammee[==vvaalluuee]
+		 Define	the symbol nnaammee	to have	some value (or NULL).
+
+       -Unnaammee	 Undefine the symbol nnaammee.
+
+       _m_4  makes  available  the following built-in macros.  They may be rede-
+       fined, but once this is done the	original meaning is lost.  Their  val-
+       ues are null unless otherwise stated.
+
+       ddeeffiinnee	 The  second  argument	is installed as	the value of the macro
+		 whose name is the first argument.  Each occurrence of	$_n  in
+		 the  replacement text,	where _n	is a digit, is replaced	by the
+		 _n-th argument.	 Argument 0 is the name	of the macro;  missing
+		 arguments are replaced	by the null string.
+
+       uunnddeeffiinnee	 removes the definition	of the macro named in its argument.
+
+       iiffddeeff	 If  the  first	 argument  is defined, the value is the	second
+		 argument, otherwise the third.	 If there is  no  third	 argu-
+		 ment, the value is null.
+
+       cchhaannggeeccoomm Change	 the  start and	end comment sequences.	The default is
+		 the pound sign	'#' and	the newline character.	With no	 argu-
+		 ments comments	are turned off.	 The maximum legnth for	a com-
+		 ment marker is	five characters.
+
+       cchhaannggeeqquuoottee
+		 Change	quote characters to the	first  and  second  arguments.
+		 _C_h_a_n_g_e_q_u_o_t_e  without  arguments  restores the original	values
+		 (i.e.,	`').
+
+       ddeeccrr	 Decrements the	argument by 1.	The argument must be  a	 valid
+		 numeric string.
+
+       ddiivveerrtt	 _m_4 maintains 10 output	streams, numbered 0-9.	The final out-
+		 put is	the concatenation of the streams in  numerical	order;
+		 initially  stream  0 is the current stream.  The _d_i_v_e_r_t macro
+		 changes the current output stream to its (digit-string) argu-
+		 ment.	 Output	diverted to a stream other than	0 through 9 is
+		 discarded.
+
+       uunnddiivveerrtt	 causes	immediate output of  text  from	 diversions  named  as
+		 arguments,  or	 all  diversions  if no	argument.  Text	may be
+		 undiverted into another diversion.  Undiverting discards  the
+		 diverted text.
+
+       ddeeffnn	 Returns the quoted definition for each	argument.  This	can be
+		 used to rename	macro definitions (even	for builtin macros).
+
+       ddiivvnnuumm	 returns the value of the current output stream.
+
+       ddnnll	 reads and discards characters up to and  including  the  next
+		 newline.
+
+       eexxpprr	 This is an alias for eval.
+
+       iiffeellssee	 has  three  or	 more arguments.  If the first argument	is the
+		 same string as	the second, then the value is the third	 argu-
+		 ment.	If not,	and if there are more than four	arguments, the
+		 process is repeated with arguments 4, 5, 6 and	7.  Otherwise,
+		 the  value  is	 either	 the  fourth  string, or, if it	is not
+		 present, null.
+
+       iinnccrr	 returns the value of its  argument  incremented  by  1.   The
+		 value	of  the	argument is calculated by interpreting an ini-
+		 tial digit-string as a	decimal	number.
+
+       eevvaall	 evaluates its argument	as  an	arithmetic  expression,	 using
+		 32-bit	arithmetic.  Operators include +, -, *,	/, %, ^	(expo-
+		 nentiation); relationals; parentheses.
+
+       lleenn	 returns the number of characters in its argument.
+
+       mm44eexxiitt	 Immediately exits with	the  return  value  specified  by  the
+		 first argument, 0 if none.
+
+       mm44wwrraapp	 Allows	 you  to define	what happens at	the final EOF, usually
+		 for  cleanup  purposes.   (e.g.,  m4wrap("cleanup(tempfile)")
+		 causes	 the  macro cleanup to be invoked after	all processing
+		 is done.)
+
+       iinnddeexx	 returns the position in its first argument where  the	second
+		 argument  begins  (zero origin), or -1	if the second argument
+		 does not occur.
+
+       ssuubbssttrr	 returns a substring of	its first argument.  The second	 argu-
+		 ment  is  a zero origin number	selecting the first character;
+		 the third argument indicates the length of the	substring.   A
+		 missing  third	argument is taken to be	large enough to	extend
+		 to the	end of the first string.
+
+       ttrraannsslliitt	 transliterates	the characters in its first argument from  the
+		 set  given  by	 the  second  argument to the set given	by the
+		 third.	 No abbreviations are permitted.
+
+       iinncclluuddee	 returns the contents of the file named	in the argument.
+
+       ssiinncclluuddee	 is identical to _i_n_c_l_u_d_e_, except that it says nothing  if  the
+		 file is inaccessible.
+
+       ssyyssccmmdd	 executes  the	UNIX  command given in the first argument.  No
+		 value is returned.
+
+       mmaakkeetteemmpp	 fills in a string of XXXXX in its argument with  the  current
+		 process id.
+
+       ppaassttee	 Includes  the	contents  of  the  file	specified by the first
+		 argument without any macro processing.	 Aborts	with an	 error
+		 message if the	file cannot be included.
+
+       ppooppddeeff	 Restores the pushdef'd	definition for each argument.
+
+       ppuusshhddeeff	 Takes	the same arguments as define, but it saves the defini-
+		 tion on a stack for later retrieval by	popdef.
+
+       sshhiifftt	 Returns all but the first argument, the  remaining  arguments
+		 are quoted and	pushed back with commas	in between.  The quot-
+		 ing nullifies the effect of the extra scan that  will	subse-
+		 quently be performed.
+
+       ssppaassttee	 Similar to paste, except it ignores any errors.
+
+       ssyyssccaall	 Returns the return value from the last	syscmd.
+
+       eerrrrpprriinntt	 prints	its argument on	the diagnostic output file.
+
+       dduummppddeeff	 prints	current	names and definitions, for the named items, or
+		 for all if no arguments are given.
+
+       uunniixx	 A pre-defined macro for testing the OS	platform.
+
+SSEEEE AALLSSOO
+       B. W. Kernighan and D. M. Ritchie, _T_h_e _m_4 _M_a_c_r_o _P_r_o_c_e_s_s_o_r
+
+HHIISSTTOORRYY
+       An m4 command appeared in Version 6 AT&T	UNIX.
+
+AAUUTTHHOORR
+       Ozan Yigit <oz@sis.yorku.ca>
+
+
+
+3rd Berkeley Distribution	April 14, 1994				 m4(1)

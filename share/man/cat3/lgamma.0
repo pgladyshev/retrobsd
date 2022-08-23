@@ -1,0 +1,70 @@
+LGAMMA(3M)							    LGAMMA(3M)
+
+
+
+NNAAMMEE
+       lgamma -	log gamma function
+
+SSYYNNOOPPSSIISS
+       ##iinncclluuddee	<<mmaatthh..hh>>
+
+       ddoouubbllee llggaammmmaa((xx))
+       ddoouubbllee xx;;
+
+DDEESSCCRRIIPPTTIIOONN		  _
+       Lgamma returns ln|| (x)|.
+							 _
+       The external integer signgam returns the	sign of	| (x) .
+
+IIDDIIOOSSYYNNCCRRAASSIIEESS								 _
+       Do nnoott use the expression signgam*exp(lgamma(x))	to compute g :=	| (x).
+       Instead use a program like this (in C):
+	      lg = lgamma(x); g	= signgam*exp(lg);
+
+       On_ly after lgamma has returned can signgam be correct.  Note  too  that
+       | (x)  must overflow when x is large enough, underflow when -x is large
+       enough, and spawn a division by zero when x is a	nonpositive integer.
+
+       Only_ in the UNIX	math library for C was the name	gamma ever attached to
+       ln| .  Elsewh_ere, for instance in IBM's F_ORTRAN library,	the name GAMMA
+       belongs to |  and the name ALGAMA to ln|	 in single precision; in  dou-
+       ble the names are DGAMMA	and DLGAMA.  Why should	C be different?
+
+       Archa_eological  records	suggest	 that  C's  gamma originally delivered
+       ln(| (|x|)).  Later, the	program	gamma was changed to cope  with	 nega-
+       tive  arguments x in a more conventional	way, but the documentation did
+       not reflect that	change correctly.  The	most  recent  change  corre_cts
+       inaccurate  values  when	x is almost a negative integer,	and lets | (x)
+       be computed without conditional expressions.   Programmers  should  not
+       assume that lgamma has settled down.
+
+       At  some	 time  in the future, the name _g_a_m_m_a will be rehabilitated and
+       used for	the gamma function, just as is done in	FORTRAN.   The	reason
+       for  this  is  not  so  much  compatibility with	FORTRAN	as a desire to
+       achieve greater speed for smaller values	of |x|	and  greater  accuracy
+       for larger values.
+
+       Meanwhile,  programmers	who  have  to use the name _g_a_m_m_a in its	former
+       sense, for what is now _l_g_a_m_m_a, have two choices:
+
+       1) Use the old math library, _l_i_b_o_m.
+
+       2) Add the following program to your others:
+	  ##iinncclluuddee <<mmaatthh..hh>>
+	  ddoouubbllee ggaammmmaa((xx))
+	  ddoouubbllee xx;;
+	  {{
+		 rreettuurrnn	((llggaammmmaa((xx))));;
+	  }}
+
+DDIIAAGGNNOOSSTTIICCSS
+       The reserved operand is returned	on a VAX for  negative	integer	 argu-
+       ments, _e_r_r_n_o is set to ERANGE; for very large arguments over/underflows
+       will occur inside the _l_g_a_m_m_a routine.
+
+SSEEEE AALLSSOO
+       math(3M), infnan(3M)
+
+
+
+4.3 Berkeley Distribution	 May 12, 1986			    LGAMMA(3M)

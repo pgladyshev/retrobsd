@@ -1,0 +1,39 @@
+SIGPENDING(2)		      System Calls Manual		 SIGPENDING(2)
+
+
+
+NNAAMMEE
+       ssiiggppeennddiinngg - get	pending	signals
+
+SSYYNNOOPPSSIISS
+       ##iinncclluuddee	<<ssiiggnnaall..hh>>
+
+       _i_n_t
+       ssiiggppeennddiinngg(set)
+       _s_i_g_s_e_t___t	_*_s_e_t_;
+
+DDEESSCCRRIIPPTTIIOONN
+       The  ssiiggppeennddiinngg	function  returns  a  mask  of the signals pending for
+       delivery	to the calling process in the location indicated by _s_e_t.  Sig-
+       nals  may  be pending because they are currently	masked,	or transiently
+       before delivery (although the latter case is not	normally detectable).
+
+RREETTUURRNN VVAALLUUEESS
+       A 0 value indicated that	the call succeeded.  A -1 return  value	 indi-
+       cates an	error occurred and _e_r_r_n_o is set	to indicated the reason.
+
+EERRRROORRSS
+       If ssiiggppeennddiinngg fails then	_e_r_r_n_o will contain one of the following:
+
+
+       [EFAULT]		   _s_e_t contains	an invalid address.
+
+SSEEEE AALLSSOO
+       sigaction(2), sigprocmask(2)
+
+SSTTAANNDDAARRDDSS
+       The ssiiggppeennddiinngg function is defined by IEEE Std1003.1-1988 (``POSIX'').
+
+
+
+4.4 Berkeley Distribution      September 3, 1997		 SIGPENDING(2)

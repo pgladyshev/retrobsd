@@ -1,0 +1,67 @@
+RSH(1C)								       RSH(1C)
+
+
+
+NNAAMMEE
+       rsh - remote shell
+
+SSYYNNOOPPSSIISS
+       rrsshh host	[ --ll username ]	[ --nn ] command
+       host [ --ll username ] [ --nn ] command
+
+DDEESSCCRRIIPPTTIIOONN
+       _R_s_h connects to the specified _h_o_s_t_, and executes	the specified _c_o_m_m_a_n_d.
+       _R_s_h copies its standard input to	the remote command, the	standard  out-
+       put  of	the  remote  command  to its standard output, and the standard
+       error of	the remote command to its standard error.  Interrupt, quit and
+       terminate  signals  are	propagated to the remote command; _r_s_h normally
+       terminates when the remote command does.
+
+       The remote username used	is the same as your local username, unless you
+       specify	a  different remote name with the --ll option.  This remote name
+       must be equivalent (in the sense	 of  _r_l_o_g_i_n(1C))  to  the  originating
+       account;	no provision is	made for specifying a password with a command.
+
+       If  you	omit  _c_o_m_m_a_n_d_, then instead of executing a single command, you
+       will be logged in on the	remote host using _r_l_o_g_i_n(1C).
+
+       Shell metacharacters which are not  quoted  are	interpreted  on	 local
+       machine,	 while	quoted	metacharacters	are  interpreted on the	remote
+       machine.	 Thus the command
+
+	  rsh otherhost	cat remotefile >> localfile
+
+       appends the remote file _r_e_m_o_t_e_f_i_l_e to the localfile _l_o_c_a_l_f_i_l_e_, while
+
+	  rsh otherhost	cat remotefile ">>" otherremotefile
+
+       appends _r_e_m_o_t_e_f_i_l_e to _o_t_h_e_r_r_e_m_o_t_e_f_i_l_e_.
+
+       Host names are given in the file	/etc/hosts.  Each host has  one	 stan-
+       dard  name (the first name given	in the file), which is rather long and
+       unambiguous, and	optionally one or more nicknames.  The host names  for
+       local  machines	are  also commands in the directory /usr/hosts;	if you
+       put this	directory in your search path then the rrsshh can be omitted.
+
+FFIILLEESS
+       /etc/hosts
+       /usr/hosts/*
+
+SSEEEE AALLSSOO
+       rlogin(1C)
+
+BBUUGGSS
+       If you are using	_c_s_h(1) and put a _r_s_h(1C)  in  the  background  without
+       redirecting  its	input away from	the terminal, it will block even if no
+       reads are posted	by the remote command.	If no  input  is  desired  you
+       should redirect the input of _r_s_h	to /dev/null using the --nn option.
+
+       You  cannot  run	 an  interactive command (like _r_o_g_u_e(6)	or _v_i(1)); use
+       _r_l_o_g_i_n(1C).
+
+       Stop signals stop the local _r_s_h process only; this is  arguably	wrong,
+       but currently hard to fix for reasons too complicated to	explain	here.
+
+
+
+4.2 Berkeley Distribution	April 29, 1985			       RSH(1C)

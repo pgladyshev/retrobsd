@@ -1,0 +1,54 @@
+symcompact(1)		    General Commands Manual		 symcompact(1)
+
+
+
+NNAAMMEE
+       symcompact - string compaction for object files
+
+SSYYNNOOPPSSIISS
+       symcompact [ oobbjjeecctt__nnaammee	... ]
+
+DDEESSCCRRIIPPTTIIOONN
+       symcompact  reduces  the	symbol table size of an	executable file.  This
+       is done by removing unnecessary overlay transfer	vectors	(text  symbols
+       beginning with a	tilde).	 In a nonoverlaid program there	is no need for
+       both the	underscore (_foo) and tilde (~foo) text	symbol	and  only  the
+       underscore form is kept.	 For overlaid programs if the symbol is	in the
+       base segment the	tilde form is not needed and again only	the underscore
+       form  is	 preserved.   Running  ssyymmccoommppaacctt typically reduces the	kernel
+       symbol table size by 250	or so symbols.
+
+       It is possible to run both ssyymmccoommppaacctt and ssttrrccoommppaacctt to achieve an even
+       higher  degree  of  symbol  and	string	table  compaction.  The	normal
+       sequence	is to run ssyymmccoommppaacctt first followed by ssttrrccoommppaacctt.  If ssyymmccoomm--
+       ppaacctt  runs  out of memory it will be necessary to reverse the order and
+       run ssyymmccoommppaacctt a	second time - see the BUGS note	below.
+
+       The user	must have write	permission to the object/executable file.
+
+       ssyymmccoommppaacctt writes to _s_t_d_e_r_r the count of	symbols	removed	from the  sym-
+       bol table.
+
+       ssyymmccoommppaacctt exits	0 if successful, and >0	if an error occurred.
+
+SSEEEE AALLSSOO
+       symcompact(1), symorder(1)
+
+BBUUGGSS
+       This  program  can  partially negate the	benefits of ssttrrccoommppaacctt because
+       multiple	references to identical	strings	cause additional strings to be
+       placed  in  the	string	table.	Running	ssttrrccoommppaacctt again after running
+       this program fixes this problem.
+
+       The _r_e_g_i_s_t_e_r local symbol type is removed  from	the  executable/object
+       file.   Since  the  debugger really doesn't know	how to deal with those
+       symbols this is not much	of a loss and saves quite a bit	of space  both
+       in the symbol table and the string table.
+
+       ssyymmccoommppaacctt  should  not	be  run	on .o files that will be passed	to the
+       linker.	The linker will	need the tilde form of the symbol if an	 over-
+       laid executable is being	created.
+
+
+
+3rd Berkeley Distribution      January 25, 1994			 symcompact(1)

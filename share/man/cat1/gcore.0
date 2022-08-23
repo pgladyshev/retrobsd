@@ -1,0 +1,42 @@
+GCORE(1)		    General Commands Manual		      GCORE(1)
+
+
+
+NNAAMMEE
+       gcore - get core	image of running process
+
+SSYYNNOOPPSSIISS
+       ggccoorree [--ss][--cc ccoorree] _p_i_d
+
+DDEESSCCRRIIPPTTIIOONN
+       _g_c_o_r_e  creates a	core image of each specified process, suitable for use
+       with _a_d_b(1).  By	 default  the  core  image  is	written	 to  the  file
+       _<_p_i_d_>_._c_o_r_e.
+
+       The options are:
+
+       --cc     Write the	core file to the specified file	instead	of _<_p_i_d_>_._c_o_r_e.
+
+       --ss     Stop  the	 process  while	 creating the core image and resume it
+	      when done.  This makes sure that the core	dump will be in	a con-
+	      sistent  state.	The  process is	resumed	even if	it was already
+	      stopped.	Of course, you can obtain the same result by  manually
+	      stopping the process with	kill(1).
+
+       The  core  image	name was changed from _c_o_r_e_._<_p_i_d_> to _<_p_i_d_>_._c_o_r_e to pre-
+       vent matching names like	_c_o_r_e_._h and _c_o_r_e_._c when using programs such  as
+       _f_i_n_d_(_1_).
+
+FFIILLEESS
+       <process-id>.core   The core image.
+
+BBUUGGSS
+       If  ggccoorree  encounters an	error while creating the core image and	the --ss
+       option was used the process will	remain stopped.
+
+       Swapped out processes and system	processes (the	swapper)  may  not  be
+       gcore'd.
+
+
+
+4.2 Berkeley Distribution	April 15, 1994			      GCORE(1)

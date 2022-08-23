@@ -1,0 +1,28 @@
+WHATIS(1)		    General Commands Manual		     WHATIS(1)
+
+
+
+NNAAMMEE
+       whatis -	describe what a	command	is
+
+SSYYNNOOPPSSIISS
+       wwhhaattiiss command ...
+
+DDEESSCCRRIIPPTTIIOONN
+       _W_h_a_t_i_s looks up a given command and gives the header line from the man-
+       ual section.  You can then run the _m_a_n(1) command to get	more  informa-
+       tion.   If  the line starts `name(section) ...' you can do `man section
+       name' to	get the	documentation for it.  Try `whatis ed'	and  then  you
+       should do `man 1	ed' to get the manual.
+
+       _W_h_a_t_i_s is actually just the --ff option to	the _m_a_n(1) command.
+
+FFIILLEESS
+       /usr/man/whatis	   Data	base
+
+SSEEEE AALLSSOO
+       man(1), catman(8)
+
+
+
+4th Berkeley Distribution	  May 7, 1986			     WHATIS(1)

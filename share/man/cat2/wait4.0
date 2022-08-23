@@ -1,0 +1,157 @@
+WAIT(2)			      System Calls Manual		       WAIT(2)
+
+
+
+NNAAMMEE
+       wait, waitpid, wait4, wait3 - wait for process terminatation
+
+SSYYNNOOPPSSIISS
+       ##iinncclluuddee	<<ssyyss//ttyyppeess..hh>>
+       ##iinncclluuddee	<<ssyyss//wwaaiitt..hh>>
+
+       ppiidd == wwaaiitt((ssttaattuuss))
+       iinntt ppiidd;;
+       uunniioonn wwaaiitt **ssttaattuuss;;
+
+       ##iinncclluuddee	<<ssyyss//ttiimmee..hh>>
+       ##iinncclluuddee	<<ssyyss//rreessoouurrccee..hh>>
+
+       ppiidd == wwaaiittppiidd((wwppiidd,, ssttaattuuss,, ooppttiioonnss));;
+       iinntt ppiidd;;
+       iinntt wwppiidd;;
+       uunniioonn wwaaiitt **ssttaattuuss;;
+       iinntt ooppttiioonnss;;
+
+       ppiidd == wwaaiitt33((ssttaattuuss,, ooppttiioonnss,, rruussaaggee));;
+       iinntt ppiidd;;
+       uunniioonn wwaaiitt **ssttaattuuss;;
+       iinntt ooppttiioonnss;;
+       ssttrruucctt rruussaaggee **rruussaaggee;;
+
+       ppiidd == wwaaiitt44((wwppiidd,, ssttaattuuss,, ooppttiioonnss,, rruussaaggee));;
+       iinntt ppiidd;;
+       iinntt wwppiidd;;
+       uunniioonn wwaaiitt **ssttaattuuss;;
+       iinntt ooppttiioonnss;;
+       ssttrruucctt rruussaaggee **rruussaaggee;;
+
+DDEESSCCRRIIPPTTIIOONN
+       The  _w_a_i_t function suspends execution of	its calling process until ssttaa--
+       ttuuss information is available for	a terminated child process, or a  sig-
+       nal  is	received.   On	return from a successful _w_a_i_t call, the	ssttaattuuss
+       area contains termination information about the process that exited  as
+       defined below.
+
+       The _w_a_i_t_4 call provides a more general interface	for programs that need
+       to wait for certain child processes,  that  need	 resource  utilization
+       statistics  accummulated	 by  child processes, or that require options.
+       The other wait functions	are implemented	using _w_a_i_t_4 _.
+
+       The wwppiidd	parameter specifies the	set of child processes	for  which  to
+       wait.  If wwppiidd is -1, the call waits for	any child process.  If wwppiidd is
+       0, the call waits for any child process in the  process	group  of  the
+       caller.	 If  wwppiidd is greater than zero,	the call waits for the process
+       with process id wwppiidd ..  If wwppiidd is less than -1,	the call waits for any
+       process whose process group id equals the absolute value	of wwppiidd	..
+
+       The  ssttaattuuss parameter is	defined	below.	The ooppttiioonnss parameter contains
+       the bitwise OR of any of	the following options.	The WWNNOOHHAANNGG option  is
+       used  to	 indicate  that	the call should	not block if there are no pro-
+       cesses that wish	to report status.  If the  WWUUNNTTRRAACCEEDD  option  is  set,
+       children	 of  the  current  process that	are stopped due	to a SSIIGGTTTTIINN ,,
+       SSIIGGTTTTOOUU ,, SSIIGGTTSSTTPP ,, or SSIIGGSSTTOOPP signal also have their status reported.
+
+       If rruussaaggee is non-zero, a	summary	of the resources used  by  the	termi-
+       nated  process  and  all	 its children is returned (this	information is
+       currently not available for stopped processes).
+
+       When the	WWNNOOHHAANNGG	option is specified and	no processes  wish  to	report
+       status, _w_a_i_t_4 returns a process id of 0.
+
+       The  _w_a_i_t_p_i_d  call  is identical	to _w_a_i_t_4 with an rruussaaggee	value of zero.
+       The older _w_a_i_t_3 call is the same	as _w_a_i_t_4 with a	wwppiidd value of -1.
+
+       The following macros may	be used	to test	the  manner  of	 exit  of  the
+       process.	  One  of  the	first three macros will	evaluate to a non-zero
+       (true) value:
+
+       _W_I_F_E_X_I_T_E_D_(_s_t_a_t_u_s_) - True	if the process terminated normally by  a  call
+       to ___e_x_i_t_(_2_) or _e_x_i_t_(_2_) _.
+
+       _W_I_F_S_I_G_N_A_L_E_D_(_s_t_a_t_u_s_)  - True if the process terminated due to receipt of
+       a signal.
+
+       _W_I_F_S_T_O_P_P_E_D_(_s_t_a_t_u_s_) - True if the	process	has not	 terminated,  but  has
+       stopped	and can	be restarted.  This macro can be true only if the wait
+       call specified the WWUUNNTTRRAACCEEDD option or if the child  process  is	 being
+       traced (see _p_t_r_a_c_e_(_2_)).
+
+       Depending  on  the values of those macros, the following	macros produce
+       the remaining status information	about the child	process:
+
+       _W_E_X_I_T_S_T_A_T_U_S_(_s_t_a_t_u_s_) - If	_W_I_F_E_X_I_T_E_D_(_s_t_a_t_u_s_) is true,  evaluates  to  the
+       low-order  8  bits of the argument passed to ___e_x_i_t_(_2_) or	_e_x_i_t_(_2_)	by the
+       child.
+
+       _W_T_E_R_M_S_I_G_(_s_t_a_t_u_s_)	- If _W_I_F_S_I_G_N_A_L_E_D_(_s_t_a_t_u_s_) is  true,  evaluates  to  the
+       number of the signal that caused	the termination	of the process.
+
+       _W_C_O_R_E_D_U_M_P_(_s_t_a_t_u_s_)  If _W_I_F_S_I_G_N_A_L_E_D_(_s_t_a_t_u_s_) is true, evaluates as true if
+       the termination of the process was accompanied by  the  creation	 of  a
+       core  file  containing  an  image  of  the  process when	the signal was
+       received.
+
+       _W_S_T_O_P_S_I_G_(_s_t_a_t_u_s_)	If _W_I_F_S_T_O_P_P_E_D_(_s_t_a_t_u_s_) is true, evaluates to the	number
+       of the signal that caused the process to	stop.
+
+NNOOTTEESS
+       See  _s_i_g_v_e_c_(_2_)  for a list of termination signals.  A status of 0 indi-
+       cates normal termination.
+
+       If a parent process terminates without waiting for  all	of  its	 child
+       processes  to terminate,	the remaining child processes are assigned the
+       parent process 1	ID (the	init process ID).
+
+       If a signal is caught while any of the _w_a_i_t calls is pending, the  call
+       may  be	interrupted  or	 restarted  when  the  signal-catching routine
+       returns,	depending on  the  options  in	effect	for  the  signal;  see
+       _i_n_t_r_o_(_2_), System	call restart.
+
+RREETTUURRNN VVAALLUUEESS
+       If  _w_a_i_t_(_)  returns  due	 to a stopped or terminated child process, the
+       process ID of the child is returned to the calling process.  Otherwise,
+       a value of -1 is	returned and _e_r_r_n_o is set to indicate the error.
+
+       If _w_a_i_t_4_(_)_, _w_a_i_t_3_(_) _o_r _w_a_i_t_p_i_d_(_)	returns	due to a stopped or terminated
+       child process, the process ID of	the child is returned to  the  calling
+       process.	  If  there  are  no  children	not  previously	awaited, -1 is
+       returned	with _e_r_r_n_o set to [[EECCHHIILLDD]]..  Otherwise,	if WWNNOOHHAANNGG  is	speci-
+       fied and	there are no stopped or	exited children, 0 is returned.	 If an
+       error is	detected or a caught signal aborts the call, a value of	-1  is
+       returned	and _e_r_r_n_o is set to indicate the error.
+
+EERRRROORRSS
+       _W_a_i_t_(_) will fail	and return immediately if:
+
+       [ECHILD]	      The  calling  process has	no existing unwaited-for child
+		      processes.
+
+       [EFAULT]	      The _s_t_a_t_u_s or  _r_u_s_a_g_e  arguments	point  to  an  illegal
+		      address.	 (May  not  be detected	before exit of a child
+		      process.)
+
+       [EINTR]	      The call was interrupted by a caught signal, or the sig-
+		      nal had the _S_V___I_N_T_E_R_R_U_P_T flag set.
+
+SSTTAANNDDAARRDDSS
+       The  _w_a_i_t  and  _w_a_i_t_p_i_d functions are defined by	POSIX; _w_a_i_t_4 and _w_a_i_t_3
+       are not specified by POSIX.  The	_W_C_O_R_E_D_U_M_P macro	 and  the  ability  to
+       restart a pending _w_a_i_t call are extensions to the POSIX interface.
+
+SSEEEE AALLSSOO
+       _e_x_i_t_(_2_)	_,  _s_i_g_v_e_c_(_2_)  A	 _w_a_i_t function call appeared in	Version	6 AT&T
+       UNIX.
+
+
+
+4th Berkeley Distribution	March 12, 1993			       WAIT(2)

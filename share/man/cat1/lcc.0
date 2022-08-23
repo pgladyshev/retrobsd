@@ -1,0 +1,316 @@
+LCC(1)			    General Commands Manual			LCC(1)
+
+
+
+NNAAMMEE
+       lcc - ANSI C compiler
+
+SSYYNNOOPPSSIISS
+       llcccc [ _o_p_t_i_o_n | _f_i_l_e ]...
+
+DDEESSCCRRIIPPTTIIOONN
+       _l_c_c is an ANSI C	compiler for a variety of platforms.
+
+       Arguments whose names end with `.c' (plus `.C' under Windows) are taken
+       to be C source programs;	they  are  preprocessed,  compiled,  and  each
+       object  program	is  left  on the file whose name is that of the	source
+       with `.o' (UNIX)	or `.obj' (Windows)  substituted  for  the  extension.
+       Arguments  whose	names end with `.i' are	treated	similarly, except they
+       are not preprocessed.  In the same  way,	 arguments  ending  with  `.s'
+       (plus `.S', `.asm', and `.ASM', under Windows) are taken	to be assembly
+       source programs and are assembled, producing an object file.  If	 there
+       are no arguments, _l_c_c summarizes	its options on the standard error.
+
+       _l_c_c  deletes  an	 object	file if	and only if exactly one	source file is
+       mentioned and no	other file (source, object, library) or	--ll  option  is
+       mentioned.
+
+       If  the	environment  variable LLCCCCIINNPPUUTTSS	is set,	_l_c_c assumes it gives a
+       semicolon- or colon-separated list of directories in which to look  for
+       source  and  object  files  whose  names	 do not	begin with `/'.	 These
+       directories are also added to the  list	of  directories	 searched  for
+       libraries.   If	LLCCCCIINNPPUUTTSS is defined, it must contain `.' in order for
+       the current directory to	be searched for	input files.
+
+       _l_c_c uses	ANSI standard header files (see	`FILES'	below).	 Include files
+       not  found  in  the ANSI	header files are taken from the	normal default
+       include areas, which usually includes //uussrr//iinncclluuddee.  Under Windows,  if
+       the environment variable	iinncclluuddee	is defined, it gives a semicolon-sepa-
+       rated list of directories in which to search for	header files.
+
+       _l_c_c interprets the following options; unrecognized options are taken as
+       loader  options (see _l_d(1)) unless --cc, --SS, or --EE	precedes them.	Except
+       for --ll, all options are processed before	any of the files and apply  to
+       all  of	the  files.  Applicable	options	are passed to each compilation
+       phase in	the order given.
+
+       --cc     Suppress the loading phase of  the  compilation,	and  force  an
+	      object file to be	produced even if only one program is compiled.
+
+       --gg     Produce additional symbol	table information for the local	debug-
+	      gers.  _l_c_c warns when --gg is unsupported.
+
+       --WWff--gg_n,,_x
+	      Set the debugging	level to _n and emit source  code  as  comments
+	      into  the	 generated  assembly code; _x must be the assembly lan-
+	      guage comment character.	If _n is	omitted,  it  defaults	to  1,
+	      which  is	 similar  to  --gg.  Omitting ,,_x just sets the debugging
+	      level to _n.
+
+       --ww     Suppress warning diagnostics, such as those announcing  unrefer-
+	      enced  statics, locals, and parameters.  The line	_#_p_r_a_g_m_a	_r_e_f _i_d
+	      simulates	a reference to the variable _i_d.
+
+       --dd_n    Generate jump tables for switches	whose density is at least _n, a
+	      floating	point  constant	 between zero and one.	The default is
+	      0.5.
+
+       --AA     Warns about declarations and casts  of  function	types  without
+	      prototypes, assignments between pointers to ints and pointers to
+	      enums, and conversions from pointers to smaller integral	types.
+	      A	second --AA warns	about unrecognized control lines, nonANSI lan-
+	      guage extensions and source characters in	literals, unreferenced
+	      variables	 and  static functions,	declaring arrays of incomplete
+	      types, and exceeding _s_o_m_e	ANSI environmental limits,  like  more
+	      than  257	 cases	in  switches.	It also	arranges for duplicate
+	      global definitions in separately compiled	files to cause	loader
+	      errors.
+
+       --PP     Writes  declarations  for	all defined globals on standard	error.
+	      Function declarations include prototypes;	 editing  this	output
+	      can  simplify  conversion	to ANSI	C.  This output	may not	corre-
+	      spond to the input when there are	several	typedefs for the  same
+	      type.
+
+       --nn     Arrange for the compiler to produce code that tests for derefer-
+	      encing zero pointers.  The code reports the offending  file  and
+	      line number and calls _a_b_o_r_t(3).
+
+       --OO     is ignored.
+
+       --SS     Compile  the  named C programs, and leave	the assembler-language
+	      output on	corresponding files suffixed `.s' or `.asm'.
+
+       --EE     Run only the preprocessor	on the named C programs	and unsuffixed
+	      file arguments, and send the result to the standard output.
+
+       --oo  _o_u_t_p_u_t
+	      Name the output file _o_u_t_p_u_t.  If --cc or --SS	is specified and there
+	      is exactly one source file, this	option	names  the  object  or
+	      assembly	file,  respectively.  Otherwise, this option names the
+	      final executable file  generated	by  the	 loader,  and  `a.out'
+	      (UNIX)  or  `a.exe' (Windows) is left undisturbed.  _l_c_c warns if
+	      --oo and --cc	or --SS are given	with more than	one  source  file  and
+	      ignores the --oo option.
+
+       --DD_n_a_m_e_=_d_e_f
+	      Define  the  _n_a_m_e	 to  the preprocessor, as if by	`#define'.  If
+	      _=_d_e_f is omitted, the name	is defined as "1".
+
+       --UU_n_a_m_e Remove any initial definition of _n_a_m_e.
+
+       --II_d_i_r  `#include' files whose names do not begin	with  `/'  are	always
+	      sought  first  in	 the  directory	of the _f_i_l_e arguments, then in
+	      directories named	in --II options, then in directories on a	 stan-
+	      dard list.
+
+       --NN     Do  not  search  _a_n_y  of the standard directories	for `#include'
+	      files.  Only those directories specified by subsequent  explicit
+	      --II options will be searched, in the order	given.
+
+       --BB_s_t_r  Use  the	compiler  _s_t_rrrcccc instead of the	default	version.  Note
+	      that _s_t_r often requires  a  trailing  slash.   On	 Sparcs	 only,
+	      --BBssttaattiicc and --BBddyynnaammiicc are passed	to the loader; see _l_d(1).
+
+       --WWoo--llccccddiirr==_d_i_r
+	      Find the preprocessor, compiler proper, and include directory in
+	      the directory _d_i_r_/ or _d_i_r_\_.  If the environment variable	LLCCCCDDIIRR
+	      is defined, it gives this	directory.  _l_c_c	warns when this	option
+	      is unsupported.
+
+       --WWff--uunnssiiggnneedd__cchhaarr==11
+       --WWff--uunnssiiggnneedd__cchhaarr==00
+	      makes plain cchhaarr an unsigned (1) or signed (0) type; by default,
+	      cchhaarr is signed.
+
+       --WWff--wwcchhaarr__tt==uunnssiiggnneedd__cchhaarr
+       --WWff--wwcchhaarr__tt==uunnssiiggnneedd__sshhoorrtt
+       --WWff--wwcchhaarr__tt==uunnssiiggnneedd__iinntt
+	      Makes wide characters the	type indicated;	by default, wide char-
+	      acters are unsigned short	ints, and wwcchhaarr__tt  is  a  typedef  for
+	      unsigned	short defined in stddef.h.  The	definition for wwcchhaarr__tt
+	      in stddef.h must correspond to the type specified.
+
+       --vv     Print commands as	they are executed; some	of the	executed  pro-
+	      grams  are  directed  to print their version numbers.  More than
+	      one occurrence of	--vv causes the commands to be printed, but  _n_o_t
+	      executed.
+
+       --hheellpp or	--??
+	      Print  a message on the standard error summarizing _l_c_c's options
+	      and giving the values of the environment variables LLCCCCIINNPPUUTTSS and
+	      LLCCCCDDIIRR,  if  they	 are  defined.	 Under	Windows, the values of
+	      iinncclluuddee and lliibb are also given, if they are defined.
+
+       --bb     Produce code that	counts the number of times each	expression  is
+	      executed.	  If  loading takes place, arrange for a pprrooff..oouutt file
+	      to be written when the object  program  terminates.   A  listing
+	      annotated	 with  execution  counts  can  then  be	generated with
+	      _b_p_r_i_n_t(1).  _l_c_c warns when --bb is unsupported.  --WWff--CC is similar,
+	      but counts only the number of function calls.
+
+       --pp     Produce  code  that  counts the number of	times each function is
+	      called.  If loading takes	place, replace	the  standard  startup
+	      function by one that automatically calls _m_o_n_i_t_o_r(3) at the start
+	      and arranges to write a mmoonn..oouutt file  when  the  object  program
+	      terminates normally.  An execution profile can then be generated
+	      with _p_r_o_f(1).  _l_c_c warns when --pp is unsupported.
+
+       --ppgg    Causes the compiler  to  produce	counting  code	like  --pp,  but
+	      invokes a	run-time recording mechanism that keeps	more extensive
+	      statistics and produces a	ggmmoonn..oouutt file at  normal  termination.
+	      Also, a profiling	library	is searched, in	lieu of	the standard C
+	      library.	An  execution  profile	can  then  be  generated  with
+	      _g_p_r_o_f(1).	 _l_c_c warns when	--ppgg is unsupported.
+
+       --tt_n_a_m_e
+       --tt     Produce  code  to	 print the name	of the function, an activation
+	      number, and the name and value  of  each	argument  at  function
+	      entry.   At function exit, produce code to print the name	of the
+	      function,	the activation	number,	 and  the  return  value.   By
+	      default,	_p_r_i_n_t_f	does  the  printing; if	_n_a_m_e appears, it does.
+	      For null _c_h_a_r_* values, "(null)" is  printed.   --ttaarrggeett  _n_a_m_e  is
+	      accepted,	but ignored.
+
+       --tteemmppddiirr==_d_i_r
+	      Store  temporary	files  in  the	directory  _d_i_r_/	 or _d_i_r_\_.  The
+	      default is usually //ttmmpp.
+
+       --WW_x_a_r_g pass argument _a_r_g	to the program indicated by _x; _x can be	one of
+	      pp,  ff,  aa, or ll, which refer, respectively, to the preprocessor,
+	      the compiler proper, the assembler,  and	the  loader.   _a_r_g  is
+	      passed  as  given;  if a -- is expected, it must be given explic-
+	      itly.  --WWoo_a_r_g specifies a	system-specific	option,	_a_r_g.
+
+       Other arguments are taken to be either loader option arguments,	or  C-
+       compatible  object  programs, typically produced	by an earlier _l_c_c run,
+       or perhaps libraries of C-compatible routines.  Duplicate object	 files
+       are ignored.  These programs, together with the results of any compila-
+       tions specified,	are loaded (in the order given)	 to  produce  an  exe-
+       cutable program with name aa..oouutt (UNIX) or aa..eexxee (Windows).
+
+       _l_c_c assigns the most frequently referenced scalar parameters and	locals
+       to registers whenever possible.	For each block,	explicit register dec-
+       larations  are  obeyed first; remaining registers are assigned to auto-
+       matic locals if they are	`referenced' at	least 3	times.	Each top-level
+       occurrence  of  an  identifier  counts as 1 reference. Occurrences in a
+       loop, either of the then/else arms of an	if statement, or a case	 in  a
+       switch  statement  each count, respectively, as 10, 1/2,	or 1/10	refer-
+       ences.  These values are	adjusted accordingly for nested	control	struc-
+       tures.  --WWff--aa causes _l_c_c	to read	a pprrooff..oouutt file	from a previous	execu-
+       tion and	to use the data	therein	to compute reference counts (see --bb).
+
+       _l_c_c is a	cross compiler;	--WWff--ttaarrggeett==_t_a_r_g_e_t_/_o_s causes  _l_c_c  to  generate
+       code  for  _t_a_r_g_e_t running the operating system denoted by _o_s.  The sup-
+       ported _t_a_r_g_e_t_/_o_s	combinations may include
+
+	      alpha/osf	     ALPHA, OSF	3.2
+	      mips/irix	     big-endian	MIPS, IRIX 5.2
+	      mips/ultrix    little-endian MIPS, ULTRIX	4.3
+	      sparc/solaris  SPARC, Solaris 2.3
+	      x86/win32	     x86, Windows NT 4.0/Windows 95/98
+	      x86/linux	     x86, Linux
+	      symbolic	     text rendition of the generated code
+	      null	     no	output
+
+       For --WWff--ttaarrggeett==ssyymmbboolliicc,	the option --WWff--hhttmmll causes the text  rendition
+       to be emitted as	HTML.
+
+LLIIMMIITTAATTIIOONNSS
+       _l_c_c  accepts  the C programming language	as described in	the ANSI stan-
+       dard.  If _l_c_c is	used with the GNU C  preprocessor,  the	 --WWpp--ttrriiggrraapphhss
+       option is required to enable trigraph sequences.
+
+       Plain  int bit fields are signed.  Bit fields are aligned like unsigned
+       integers	but are	otherwise laid out as by most  standard	 C  compilers.
+       Some compilers, such as the GNU C compiler, may choose other, incompat-
+       ible layouts.
+
+       Likewise, calling conventions are intended to be	 compatible  with  the
+       host  C compiler, except	possibly for passing and returning structures.
+       Specifically, _l_c_c passes	and returns structures like host ANSI  C  com-
+       pilers  on  most	targets, but some older	host C compilers use different
+       conventions.  Consequently, calls to/from such functions	compiled  with
+       older  C	 compilers  may	 not  work.  Calling a function	that returns a
+       structure without declaring it as such violates the ANSI	 standard  and
+       may cause a fault.
+
+FFIILLEESS
+       The  file names listed below are	_t_y_p_i_c_a_l, but vary among	installations;
+       installation-dependent variants can be displayed	by  running  _l_c_c  with
+       the --vv option.
+
+	      file.{c,C}	      input file
+	      file.{s,asm}	      assembly-language	file
+	      file.{o,obj}	      object file
+	      a.{out,exe}	      loaded output
+	      /tmp/lcc*		      temporary	files
+	      $LCCDIR/cpp	      preprocessor
+	      $LCCDIR/rcc	      compiler
+	      $LCCDIR/liblcc.{a,lib}  _l_c_c-specific library
+	      /lib/crt0.o	      runtime startup (UNIX)
+	      /lib/[gm]crt0.o	      startups for profiling (UNIX)
+	      /lib/libc.a	      standard library (UNIX)
+	      $LCCDIR/include	      ANSI standard headers
+	      /usr/local/include      local headers
+	      /usr/include	      traditional headers
+	      prof.out		      file produced for	_b_p_r_i_n_t(1)
+	      mon.out		      file produced for	_p_r_o_f(1)
+	      gmon.out		      file produced for	_g_p_r_o_f(1)
+
+       _l_c_c predefines the macro	____LLCCCC____	on all systems.	 It may	also predefine
+       some installation-dependent symbols; option --vv exposes them.
+
+SSEEEE AALLSSOO
+       C. W. Fraser and	D. R. Hanson, _A	_R_e_t_a_r_g_e_t_a_b_l_e _C	_C_o_m_p_i_l_e_r_:  _D_e_s_i_g_n  _a_n_d
+       _I_m_p_l_e_m_e_n_t_a_t_i_o_n_, Addison-Wesley, 1995. ISBN 0-8053-1670-1.
+
+       The World-Wide Web page at http://www.cs.princeton.edu/software/lcc/.
+
+       S.  P.  Harbison	and G. L. Steele, Jr., _C_: _A _R_e_f_e_r_e_n_c_e _M_a_n_u_a_l_, 4th ed.,
+       Prentice-Hall, 1995.
+
+       B. W. Kernighan and D. M. Ritchie, _T_h_e _C	_P_r_o_g_r_a_m_m_i_n_g _L_a_n_g_u_a_g_e_, 2nd ed.,
+       Prentice-Hall, 1988.
+
+       American	 National  Standards  Inst.,  _A_m_e_r_i_c_a_n	_N_a_t_i_o_n_a_l  _S_t_a_n_d_a_r_d _f_o_r
+       _I_n_f_o_r_m_a_t_i_o_n _S_y_s_t_e_m_s_-_-_P_r_o_g_r_a_m_m_i_n_g	 _L_a_n_g_u_a_g_e_-_-_C,  ANSI  X3.159-1989,  New
+       York, 1990.
+
+BBUUGGSS
+       Mail  bug  reports  along  with	the shortest preprocessed program that
+       exposes them and	the details  reported  by  _l_c_c's  --vv  option  to  lcc-
+       bugs@princeton.edu.   The   WWW	 page	at  URL	 http://www.cs.prince-
+       ton.edu/software/lcc/  includes	detailed  instructions	for  reporting
+       bugs.
+
+       The  ANSI  standard  headers conform to the specifications in the Stan-
+       dard, which may be too restrictive for some applications, but necessary
+       for  portability.   Functions  given in the ANSI	headers	may be missing
+       from some local C libraries (e.g., wide-character functions) or may not
+       correspond  exactly  to the local versions; for example,	the ANSI stan-
+       dard stdio.h specifies that _p_r_i_n_t_f, _f_p_r_i_n_t_f,  and  _s_p_r_i_n_t_f  return  the
+       number  of  characters  written to the file or array, but some existing
+       libraries don't implement this convention.
+
+       On the MIPS and SPARC, old-style	variadic functions must	use  varargs.h
+       from MIPS or Sun. New-style is recommended.
+
+       With  --bb, files compiled	_w_i_t_h_o_u_t	--bb may cause _b_p_r_i_n_t to print erroneous
+       call graphs.  For example, if ff calls gg calls hh and ff and  hh  are  com-
+       piled  with  --bb,	but gg is not, bbpprriinntt will report that ff	called hh.  The
+       total number of calls is	correct, however.
+
+
+
+		     local - $Date: 1998/08/24 21:14:33	$		LCC(1)

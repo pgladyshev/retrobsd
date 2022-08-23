@@ -1,0 +1,135 @@
+GPANEL(3)		   Library Functions Manual		     GPANEL(3)
+
+
+
+NNAAMMEE
+       gpanel_open,  gpanel_close,  gpanel_clear,  gpanel_pixel,  gpanel_line,
+       gpanel_rect,  gpanel_fill,  gpanel_circle,  gpanel_image,  gpanel_char,
+       gpanel_text, panel_text_width - graphics	panel routines
+
+SSYYNNOOPPSSIISS
+       ##iinncclluuddee	<<ssyyss//ggppaanneell..hh>>
+
+       iinntt ggppaanneell__ooppeenn((ccoonnsstt cchhaarr **ddeevvnnaammee));;
+
+       vvooiidd ggppaanneell__cclloossee((vvooiidd));;
+
+       vvooiidd ggppaanneell__cclleeaarr((iinntt ccoolloorr,, iinntt	**xxssiizzee,,	iinntt **yyssiizzee));;
+
+       vvooiidd ggppaanneell__ppiixxeell((iinntt ccoolloorr,, iinntt	xx,, iinntt yy));;
+
+       vvooiidd ggppaanneell__lliinnee((iinntt ccoolloorr,, iinntt xx00,, iinntt yy00,, iinntt xx11,, iinntt yy11));;
+
+       vvooiidd ggppaanneell__rreecctt((iinntt ccoolloorr,, iinntt xx00,, iinntt yy00,, iinntt xx11,, iinntt yy11));;
+
+       vvooiidd ggppaanneell__ffiillll((iinntt ccoolloorr,, iinntt xx00,, iinntt yy00,, iinntt xx11,, iinntt yy11));;
+
+       vvooiidd ggppaanneell__cciirrccllee((iinntt ccoolloorr,, iinntt xx,, iinntt	yy,, iinntt rraaddiiuuss));;
+
+       vvooiidd ggppaanneell__iimmaaggee((iinntt xx,,	iinntt yy,, iinntt wwiiddtthh,, iinntt hheeiigghhtt,,
+			 ccoonnsstt uunnssiiggnneedd	sshhoorrtt **ddaattaa));;
+
+       vvooiidd ggppaanneell__cchhaarr((ccoonnsstt ssttrruucctt ggppaanneell__ffoonntt__tt **ffoonntt,, iinntt ccoolloorr,,
+			iinntt bbaacckkggrroouunndd,,	iinntt xx,, iinntt yy,, iinntt ssyymm));;
+
+       vvooiidd ggppaanneell__tteexxtt((ccoonnsstt ssttrruucctt ggppaanneell__ffoonntt__tt **ffoonntt,, iinntt ccoolloorr,,
+			iinntt bbaacckkggrroouunndd,,	iinntt xx,, iinntt yy,, ccoonnsstt cchhaarr **tteexxtt));;
+
+       iinntt ggppaanneell__tteexxtt__wwiiddtthh((ccoonnsstt ssttrruucctt ggppaanneell__ffoonntt__tt	**ffoonntt,,
+			     ccoonnsstt cchhaarr	**tteexxtt,, iinntt nncchhaarrss));;
+
+DDEESSCCRRIIPPTTIIOONN
+       This  library provides a	set of routines	for access to a	graphics panel
+       like TFT	LCD or OLED displays.  HX8357 display on a Picadillo-35T board
+       is  an  example	of  such  display.  Use	cc option _-_l_g_p_a_n_e_l to link the
+       gpanel library.
+
+       _g_p_a_n_e_l___o_p_e_n - This routine opens	a connection to	 the  display  driver.
+       The  argument  to  this	function  is  the  name	 of  the  device, like
+       "/dev/tft0".  Negative value is returned	in case	of error.
+
+       _g_p_a_n_e_l___c_l_o_s_e - Close a connection to the	device.
+
+       _g_p_a_n_e_l___c_l_e_a_r - This routine is used to clear  the  whole	 screen	 to  a
+       given  color, optionally	switch the display resolution and orientation,
+       and get the display size	in pixels.  On	input,	parameters  _x_s_i_z_e  and
+       _y_s_i_z_e should contain the	desired	dimensions of the display, or zeros to
+       use the default screen size and orientation. On output, _x_s_i_z_e and _y_s_i_z_e
+       are set to the current display size.
+
+       _g_p_a_n_e_l___p_i_x_e_l - Draw a single pixel of a specified color.
+
+       _g_p_a_n_e_l___l_i_n_e - Draw a line.
+
+       _g_p_a_n_e_l___r_e_c_t - Draw a rectangular	frame (not filled).
+
+       _g_p_a_n_e_l___f_i_l_l - Draw a rectangle filled with specified color.
+
+       _g_p_a_n_e_l___c_i_r_c_l_e - Draw a circle with a given center and radius.
+
+       _g_p_a_n_e_l___i_m_a_g_e  -	Draw  an arbitrary image: fill a rectangular area with
+       pixel values from a user-supplied data.
+
+       _g_p_a_n_e_l___c_h_a_r - Draw a single character with a specified  Unicode	encod-
+       ing.
+
+       _g_p_a_n_e_l___t_e_x_t - Draw a text string	in UTF-8 encoding.
+
+       _g_p_a_n_e_l___t_e_x_t___w_i_d_t_h  -  Compute  a	 width	in pixels for a	text string in
+       UTF-8 encoding.
+
+EEXXAAMMPPLLEE
+       #include	<stdio.h>
+       #include	<sys/gpanel.h>
+
+       int main()
+       {
+	   int xsize, ysize;
+
+	   if (gpanel_open("/dev/tft0")	< 0) {
+	       printf("Cannot open display0);
+	       exit(-1);
+	   }
+	   /* Get screen size */
+	   gpanel_clear(0, &xsize, &ysize);
+
+	   /* Draw a white rectangle of	max size */
+	   gpanel_rect(0xffff, 0, 0, xsize-1, ysize-1);
+	   return 0;
+       }
+
+FFOONNTTSS
+       struct gpanel_font_t {
+	   const char *	   name;	 /* font name */
+	   int		   maxwidth;	 /* max	width in pixels	*/
+	   unsigned int	   height;	 /* height in pixels */
+	   int		   ascent;	 /* ascent (baseline) height */
+	   int		   firstchar;	 /* first character in bitmap */
+	   int		   size;	 /* font size in characters */
+	   const unsigned short	*bits;	 /* 16-bit right-padded	bitmap data */
+	   const unsigned short	*offset; /* offsets into bitmap	data */
+	   const unsigned char *width;	 /* character widths or	0 if fixed */
+	   int		   defaultchar;	 /* default char (not glyph index) */
+	   long		   bits_size;	 /* number of words of bits */
+       };
+
+       Fonts are specified via a data structure	_s_t_r_u_c_t _g_p_a_n_e_l___f_o_n_t___t  ,	 which
+       defines	character sizez	and glyph images.  Font	data for some commonly
+       used fonts are available	in _/_s_h_a_r_e_/_e_x_a_m_p_l_e_s_/_g_p_a_n_e_l_/_f_o_n_t_s	directory.   A
+       utility	_c_o_n_v_b_d_f	 can be	used to	convert	XWindows BDF fonts to a	struct
+       gpanel_font_t data.  When combined with _o_t_f_2_b_d_f utility,	this allows to
+       generate	 font  data for	any TrueType font, like	Verdana	or Lucida Sans
+       Unicode.
+
+BBUUGGSS
+       Data and	font pointers in gpanel_image and gpanel_text routines are not
+       checked for validity, and can cause unexpected errors when not correct.
+
+FFIILLEESS
+       /share/examples/gpanel  Examples	of using the _l_i_b_g_p_a_n_e_l library.
+
+       /dev/tft0	       Device name for hx8357 TFT display driver.
+
+
+
+4.3 Berkeley Distribution	October	9, 2015			     GPANEL(3)

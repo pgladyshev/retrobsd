@@ -1,0 +1,36 @@
+PMERGE(1)		    General Commands Manual		     PMERGE(1)
+
+
+
+NNAAMMEE
+       pmerge -	pascal file merger
+
+SSYYNNOOPPSSIISS
+       ppmmeerrggee name.p ...
+
+DDEESSCCRRIIPPTTIIOONN
+       _P_m_e_r_g_e  assembles  the named Pascal files into a	single standard	Pascal
+       program.	 The resulting program is listed on the	standard  output.   It
+       is  intended  to	 be  used to merge a collection	of separately compiled
+       modules so that they can	be run through	ppii  ,  or  exported  to	 other
+       sites.
+
+FFIILLEESS
+       /usr/tmp/MG*   default temporary	files
+
+SSEEEE AALLSSOO
+       pc(1), pi(1),
+       Auxiliary documentation _B_e_r_k_e_l_e_y	_P_a_s_c_a_l _U_s_e_r_'_s _M_a_n_u_a_l_.
+
+AAUUTTHHOORR
+       M. Kirk McKusick
+
+BBUUGGSS
+       Very minimal error checking is done, so incorrect programs will produce
+       unpredictable results.  Block comments should be	placed after the  key-
+       word  to	 which	they  refer  or	 they  are likely to end up in bizarre
+       places.
+
+
+
+4th Berkeley Distribution	April 29, 1985			     PMERGE(1)

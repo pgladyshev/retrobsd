@@ -1,0 +1,54 @@
+SYSERRLST(3)		   Library Functions Manual		  SYSERRLST(3)
+
+
+
+NNAAMMEE
+       syserrlst, __errlst - read system error messages	from file
+
+SSYYNNOOPPSSIISS
+       cchhaarr **
+       ssyysseerrrrllsstt((eerrrr))
+       iinntt eerrrr;;
+
+       cchhaarr **
+       ____eerrrrllsstt((eerrrr,, ppaatthh));;
+       iinntt eerrrr;;
+       cchhaarr **ppaatthh;;
+
+DDEESSCCRRIIPPTTIIOONN
+       SSyysseerrrrllsstt(3)  reads  the	error message string corresponding to _e_r_r from
+       the file	_/_e_t_c_/_s_y_s_e_r_r_l_s_t.
+
+       ____eerrrrllsstt((33)) reads the error message string corresponding	 to  _e_r_r  from
+       the file	_p_a_t_h.  The file	_p_a_t_h must be in	the format described in	ssyysseerr--
+       rrllsstt(5).
+
+       NNUULLLL is returned	if _e_r_r is out of bounds	(negative or greater than  the
+       highest	message	number in _/_e_t_c_/_s_y_s_e_r_r_l_s_t or _p_a_t_h) or if	the error mes-
+       sage file can not be opened.  It	is the responsibility  of  the	caller
+       (ssttrreerrrroorr(3)) to	check for and properly handle the _N_U_L_L return.
+
+RREETTUURRNN VVAALLUUEE
+       NNUULLLL  if	an error was encountered in opening the	error message file, if
+       the error was out of bounds, or if the file did not start with the cor-
+       rect magic number.  Otherwise a cchhaarr ** is returned pointing to a	static
+       buffer containing the text of the error message.
+
+EERRRROORRSS
+       ssyysseerrrrllsstt(3) and	____eerrrrllsstt(3) can	return	any  of	 the  errors  for  the
+       ooppeenn(2),	llsseeeekk(2), or rreeaadd(2) system calls.
+
+SSEEEE AALLSSOO
+       perror(3), strerror(3), syserrlst(5)
+
+HHIISSTTOORRYY
+       ssyysseerrrrllsstt(3),  and ____eerrrrllsstt(3) were created for 2.11BSD with the	aim of
+       saving 2kb of DDaattaa space	in programs which called  ppeerrrroorr(3),  or  ssttrr--
+       eerrrroorr(3).
+
+BBUUGGSS
+       The information is stored in a static buffer.
+
+
+
+3rd Berkeley Distribution	March 26, 1996			  SYSERRLST(3)

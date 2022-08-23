@@ -1,0 +1,36 @@
+EMG(1)			  BSD General Commands Manual			EMG(1)
+
+NNAAMMEE
+     eemmgg -- very small Emacs-like text editor
+
+SSYYNNOOPPSSIISS
+     eemmgg [_f_i_l_e]
+
+DDEESSCCRRIIPPTTIIOONN
+     eemmgg, or Ersatz Mg,	is an Emacs-like text editor designed for RetroBSD and
+     other memory-constrained environments.  eemmgg was originally	created	to fit
+     into an operating environment of 96K of RAM, and one in which Mg did not
+     fit and Ersatz Emacs did not build.  By combining parts of	each a working
+     editor was	created.
+
+     When invoked without a file argument, eemmgg creates a _*_s_c_r_a_t_c_h_* buffer.
+     This buffer can be	edited and saved like a	named buffer.
+
+     As	both Ersatz Emacs and Mg are Public Domain, eemmgg	is also	Public Domain.
+
+FFIILLEESS
+     There is a	chart of key bindings in _/_u_s_r_/_l_o_c_a_l_/_s_h_a_r_e_/_d_o_c_/_e_m_g_/_e_m_g_._k_e_y_s.
+     Consulting	this file is a must.  While eemmgg	strives	to maintain compati-
+     bility with larger	Emacs implementations, there may be features inten-
+     tionally left unimplemented in order to keep eemmgg as small as possible.
+
+AAUUTTHHOORRSS
+     eemmgg is a combination of Ersatz Emacs and Mg and therefore all authors for
+     both deserve credit.  Ersatz Emacs	and Mg were combined by	Brian Callahan
+     <_b_c_a_l_l_a_h_@_o_p_e_n_b_s_d_._o_r_g> to create eemmgg.
+
+BBUUGGSS
+     It	would be nice to have automatic	window resizing.  It would also	be
+     nice if eemmgg could clear the screen	when quit, like	Mg does.
+
+BSD				August 9, 2015				   BSD

@@ -1,0 +1,123 @@
+SELECT(2)		      System Calls Manual		     SELECT(2)
+
+
+
+NNAAMMEE
+       pselect,	select - synchronous I/O multiplexing
+
+SSYYNNOOPPSSIISS
+       ##iinncclluuddee	<<ssyyss//ttyyppeess..hh>>
+       ##iinncclluuddee	<<ssyyss//ttiimmee..hh>>
+       ##iinncclluuddee	<<ssyyss//sseelleecctt..hh>>
+       ##iinncclluuddee	<<ssiiggnnaall..hh>>
+
+       nnffoouunndd ==	ppsseelleecctt((nnffddss,, rreeaaddffddss,, wwrriitteeffddss,, eexxcceeppttffddss,, ttiimmeeoouutt,, ssiiggmmaasskk));;
+       iinntt nnffoouunndd,, nnffddss;;
+       ffdd__sseett **rreeaaddffddss,,	**wwrriitteeffddss,, **eexxcceeppttffddss;;
+       ssttrruucctt ttiimmeessppeecc **ttiimmeeoouutt;;
+       ssiiggsseett__tt	**ssiiggmmaasskk;;
+
+       nnffoouunndd ==	sseelleecctt((nnffddss,, rreeaaddffddss,, wwrriitteeffddss,,	eexxcceeppttffddss,, ttiimmeeoouutt))
+       iinntt nnffoouunndd,, nnffddss;;
+       ffdd__sseett **rreeaaddffddss,,	**wwrriitteeffddss,, **eexxcceeppttffddss;;
+       ssttrruucctt ttiimmeevvaall **ttiimmeeoouutt;;
+
+       FFDD__SSEETT((ffdd,, &&ffddsseett))
+       FFDD__CCLLRR((ffdd,, &&ffddsseett))
+       FFDD__IISSSSEETT((ffdd,, &&ffddsseett))
+       FFDD__ZZEERROO((&&ffddsseett))
+       iinntt ffdd;;
+       ffdd__sseett ffddsseett;;
+
+DDEESSCCRRIIPPTTIIOONN
+       _P_s_e_l_e_c_t	and _s_e_l_e_c_t examine the I/O descriptor sets whose addresses are
+       passed in _r_e_a_d_f_d_s, _w_r_i_t_e_f_d_s, and	_e_x_c_e_p_t_f_d_s to  see  if  some  of	 their
+       descriptors  are	 ready	for reading, are ready for writing, or have an
+       exceptional condition pending, respectively.   The  two	functions  are
+       identical  except for the type and format of the	_t_i_m_e_o_u_t	value, and the
+       additonal _s_i_g_m_a_s_k parameter supplied to the _p_s_e_l_e_c_t() call.
+
+       The first _n_f_d_s descriptors are checked in each set; i.e.	 the  descrip-
+       tors  from  0  through  _n_f_d_s-1 in the descriptor	sets are examined.  On
+       return, _s_e_l_e_c_t replaces the given descriptor sets with subsets consist-
+       ing  of	those  descriptors that	are ready for the requested operation.
+       The total number	of ready descriptors in	all the	sets  is  returned  in
+       _n_f_o_u_n_d.
+
+       The  descriptor	sets  are  stored as bit fields	in arrays of integers.
+       The following macros are	 provided  for	manipulating  such  descriptor
+       sets:  _F_D___Z_E_R_O_(_&_f_d_s_e_t_)  initializes  a descriptor set _f_d_s_e_t to the null
+       set.  _F_D___S_E_T_(_f_d_,	_&_f_d_s_e_t_)	includes a particular descriptor _f_d in	_f_d_s_e_t.
+       _F_D___C_L_R_(_f_d_,  _&_f_d_s_e_t_)  removes  _f_d	 from  _f_d_s_e_t.  _F_D___I_S_S_E_T_(_f_d_, _&_f_d_s_e_t_) is
+       nonzero if _f_d is	a member of _f_d_s_e_t, zero	otherwise.   The  behavior  of
+       these  macros  is  undefined if a descriptor value is less than zero or
+       greater than or equal to	_F_D___S_E_T_S_I_Z_E, which is normally at  least	 equal
+       to the maximum number of	descriptors supported by the system.
+
+       If  _t_i_m_e_o_u_t  is	a non-zero pointer, it specifies a maximum interval to
+       wait for	the selection to complete.  If	_t_i_m_e_o_u_t	 is  a	zero  pointer,
+       _s_e_l_e_c_t  blocks  indefinitely.   To  affect a poll, the _t_i_m_e_o_u_t argument
+       should be non-zero, pointing to a zero-valued timeval structure.
+
+       If the _s_i_g_m_a_s_k parameter	to _p_s_e_l_e_c_t() is	not NULL, it points to a  sig-
+       nal mask	that replaces the previous signal mask for the process for the
+       duration	of the call, and the previous mask is  restored	 upon  return;
+       see  sigprocmask(3).   This  is	normally  used	so that	signals	can be
+       blocked while preparing for a call to  _p_s_e_l_e_c_t()	 and  then  atomically
+       unblocking the signals while selecting.
+
+       Any  of	_r_e_a_d_f_d_s, _w_r_i_t_e_f_d_s, and _e_x_c_e_p_t_f_d_s may be	given as zero pointers
+       if no descriptors are of	interest.
+
+RREETTUURRNN VVAALLUUEE
+       _S_e_l_e_c_t returns the number of ready descriptors that  are	 contained  in
+       the  descriptor	sets,  or  -1 if an error occurred.  If	the time limit
+       expires then _s_e_l_e_c_t returns  0.	 If  _s_e_l_e_c_t  returns  with  an	error,
+       including  one  due to an interrupted call, the descriptor sets will be
+       unmodified.
+
+EERRRROORRSS
+       An error	return from _s_e_l_e_c_t indicates:
+
+       [EBADF]	      One of the descriptor sets specified an invalid descrip-
+		      tor.
+
+       [EINTR]	      A	signal was delivered before the	time limit expired and
+		      before any of the	selected events	occurred.
+
+       [EINVAL]	      The specified time limit is invalid.  One	of its	compo-
+		      nents is negative	or too large.
+
+SSEEEE AALLSSOO
+       accept(2),  connect(2), read(2),	write(2), recv(2), send(2), getdtable-
+       size(2)
+
+BBUUGGSS
+       Although	the provision of _g_e_t_d_t_a_b_l_e_s_i_z_e(2) was intended to  allow  user
+       programs	to be written independent of the kernel	limit on the number of
+       open files, the dimension of a sufficiently large bit field for	select
+       remains	a  problem.   The  default  size FD_SETSIZE (currently 256) is
+       somewhat	larger than the	current	kernel limit to	 the  number  of  open
+       files.	However,  in  order to accommodate programs which might	poten-
+       tially use a larger number of open files	with select, it	is possible to
+       increase	this size within a program by providing	a larger definition of
+       FD_SETSIZE before the inclusion of <sys/types.h>.
+
+       _S_e_l_e_c_t should probably return the  time	remaining  from	 the  original
+       timeout,	 if  any,  by  modifying the time value	in place.  This	may be
+       implemented in future versions of the system.  Thus, it	is  unwise  to
+       assume that the timeout value will be unmodified	by the _s_e_l_e_c_t call.
+
+       In  2BSD	the timeout is implemented in the kernel using the _c_a_l_l_o_u_t ta-
+       ble.  Since a _c_a_l_l_o_u_t structure only has	a signed short	to  store  the
+       number  of  ticks till expiration the maximum value of a	kernel timeout
+       is 32767	ticks.	In the US (60hz	power) this gives a maximum timeout of
+       approximately  9	 minutes.   In	countries using	50hz power the maximum
+       timeout is about	13 minutes.
+
+       _s_t_r_u_c_t _t_i_m_e_s_p_e_c on a PDP-11 is silly since  the	hardware  has  nowhere
+       near microsecond	much less nanosecond clock resolution.
+
+
+
+4.2 Berkeley Distribution	 March 4, 2000			     SELECT(2)

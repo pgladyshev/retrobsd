@@ -1,0 +1,29 @@
+HOSTNAME(1)		    General Commands Manual		   HOSTNAME(1)
+
+
+
+NNAAMMEE
+       hostname	- set or print name of current host system
+
+SSYYNNOOPPSSIISS
+       hhoossttnnaammee	[ --ss ] [ nnaammeeooffhhoosstt ]
+
+DDEESSCCRRIIPPTTIIOONN
+       _H_o_s_t_n_a_m_e	 prints	 the name of the current host.	The super-user can set
+       the hostname by supplying an argument; this is usually done in the net-
+       work initialization script _/_e_t_c_/_n_e_t_s_t_a_r_t	_, normally run at boot time.
+
+       Options:
+
+       --ss     Trims off	any domain information from the	printed	name.
+
+
+SSEEEE AALLSSOO
+       gethostname(2), sethostname(2)
+
+HHIISSTTOORRYY
+       The _h_o_s_t_n_a_m_e command appeared in	BSD 4.2	.
+
+
+
+			       January 29, 1995			   HOSTNAME(1)

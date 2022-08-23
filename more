@@ -1,0 +1,1095 @@
+make -C tools
+make[1]: Entering directory '/home/osboxes/retrobsd/tools'
+for i in elf2aout fsutil virtualmips mkrd kconfig icache; do make -C $i -w DESTDIR= all; done
+make[2]: Entering directory '/home/osboxes/retrobsd/tools/elf2aout'
+make[2]: Nothing to be done for 'all'.
+make[2]: Leaving directory '/home/osboxes/retrobsd/tools/elf2aout'
+make[2]: Entering directory '/home/osboxes/retrobsd/tools/fsutil'
+gcc -g  -o fsutil fsutil.o superblock.o block.c inode.o create.o check.o file.o mount.o manifest.o 
+Makefile:25: recipe for target 'fsutil' failed
+make[2]: Leaving directory '/home/osboxes/retrobsd/tools/fsutil'
+make[2]: Entering directory '/home/osboxes/retrobsd/tools/virtualmips'
+gcc -g -DSIM_PIC32 -DPIC32MX7 -DMAX32 -Wall -Werror -MT dev_nand_flash_1g.o -MD -MP -MF .deps/dev_nand_flash_1g.dep -I/opt/local/include -I/opt/local/include/libelf -O   -c -o dev_nand_flash_1g.o dev_nand_flash_1g.c
+<builtin>: recipe for target 'dev_nand_flash_1g.o' failed
+make[2]: Leaving directory '/home/osboxes/retrobsd/tools/virtualmips'
+make[2]: Entering directory '/home/osboxes/retrobsd/tools/mkrd'
+make[2]: Nothing to be done for 'all'.
+make[2]: Leaving directory '/home/osboxes/retrobsd/tools/mkrd'
+make[2]: Entering directory '/home/osboxes/retrobsd/tools/kconfig'
+byacc -d  config.y 
+mv -f y.tab.c config.c
+gcc -g -O -Wall -Werror   -c -o config.o config.c
+<builtin>: recipe for target 'config.o' failed
+rm config.c
+make[2]: Leaving directory '/home/osboxes/retrobsd/tools/kconfig'
+make[2]: Entering directory '/home/osboxes/retrobsd/tools/icache'
+make[2]: Nothing to be done for 'all'.
+make[2]: Leaving directory '/home/osboxes/retrobsd/tools/icache'
+make[1]: Leaving directory '/home/osboxes/retrobsd/tools'
+make -C lib
+make[1]: Entering directory '/home/osboxes/retrobsd/lib'
+for i in startup libc libm libcurses libtermlib libwiznet libreadline libgpanel; do make -C $i -w DESTDIR= all; done
+make[2]: Entering directory '/home/osboxes/retrobsd/lib/startup'
+make[2]: Nothing to be done for 'all'.
+make[2]: Leaving directory '/home/osboxes/retrobsd/lib/startup'
+make[2]: Entering directory '/home/osboxes/retrobsd/lib/libc'
+make[2]: Nothing to be done for 'all'.
+make[2]: Leaving directory '/home/osboxes/retrobsd/lib/libc'
+make[2]: Entering directory '/home/osboxes/retrobsd/lib/libm'
+make[2]: Nothing to be done for 'all'.
+make[2]: Leaving directory '/home/osboxes/retrobsd/lib/libm'
+make[2]: Entering directory '/home/osboxes/retrobsd/lib/libcurses'
+make[2]: Nothing to be done for 'all'.
+make[2]: Leaving directory '/home/osboxes/retrobsd/lib/libcurses'
+make[2]: Entering directory '/home/osboxes/retrobsd/lib/libtermlib'
+make[2]: Nothing to be done for 'all'.
+make[2]: Leaving directory '/home/osboxes/retrobsd/lib/libtermlib'
+make[2]: Entering directory '/home/osboxes/retrobsd/lib/libwiznet'
+make[2]: Nothing to be done for 'all'.
+make[2]: Leaving directory '/home/osboxes/retrobsd/lib/libwiznet'
+make[2]: Entering directory '/home/osboxes/retrobsd/lib/libreadline'
+make[2]: Nothing to be done for 'all'.
+make[2]: Leaving directory '/home/osboxes/retrobsd/lib/libreadline'
+make[2]: Entering directory '/home/osboxes/retrobsd/lib/libgpanel'
+make[2]: Nothing to be done for 'all'.
+make[2]: Leaving directory '/home/osboxes/retrobsd/lib/libgpanel'
+make[1]: Leaving directory '/home/osboxes/retrobsd/lib'
+make -C src install
+make[1]: Entering directory '/home/osboxes/retrobsd/src'
+for i in startup-mips libc libm libutil libtermlib libcurses libvmf libwiznet libreadline libgpanel share cmd games man; do \
+		make -C $i DESTDIR=/home/osboxes/retrobsd all install; done
+make[2]: Entering directory '/home/osboxes/retrobsd/src/startup-mips'
+cp crt0.o ../
+make[2]: Nothing to be done for 'install'.
+make[2]: Leaving directory '/home/osboxes/retrobsd/src/startup-mips'
+make[2]: Entering directory '/home/osboxes/retrobsd/src/libc'
+cd gen; make -w DEFS="-Wall -Werror"
+make[3]: Entering directory '/home/osboxes/retrobsd/src/libc/gen'
+make[3]: 'gen.a' is up to date.
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/libc/gen'
+cd stdio; make -w DEFS="-Wall -Werror"
+make[3]: Entering directory '/home/osboxes/retrobsd/src/libc/stdio'
+make[3]: 'stdio.a' is up to date.
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/libc/stdio'
+cd stdlib; make -w DEFS="-Wall -Werror"
+make[3]: Entering directory '/home/osboxes/retrobsd/src/libc/stdlib'
+make[3]: Nothing to be done for 'all'.
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/libc/stdlib'
+cd string; make -w DEFS="-Wall -Werror"
+make[3]: Entering directory '/home/osboxes/retrobsd/src/libc/string'
+make[3]: Nothing to be done for 'all'.
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/libc/string'
+cd inet; make -w DEFS="-Wall -Werror"
+make[3]: Entering directory '/home/osboxes/retrobsd/src/libc/inet'
+make[3]: 'inet.a' is up to date.
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/libc/inet'
+cd compat; make -w DEFS="-Wall -Werror"
+make[3]: Entering directory '/home/osboxes/retrobsd/src/libc/compat'
+make[3]: 'compat.a' is up to date.
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/libc/compat'
+cd mips; make -w DEFS="-Wall -Werror"
+make[3]: Entering directory '/home/osboxes/retrobsd/src/libc/mips'
+cd gen; make -w DEFS="-Wall -Werror"
+make[4]: Entering directory '/home/osboxes/retrobsd/src/libc/mips/gen'
+make[4]: 'gen.a' is up to date.
+make[4]: Leaving directory '/home/osboxes/retrobsd/src/libc/mips/gen'
+cd string; make -w DEFS="-Wall -Werror"
+make[4]: Entering directory '/home/osboxes/retrobsd/src/libc/mips/string'
+make[4]: 'string.a' is up to date.
+make[4]: Leaving directory '/home/osboxes/retrobsd/src/libc/mips/string'
+cd sys; make -w DEFS="-Wall -Werror"
+make[4]: Entering directory '/home/osboxes/retrobsd/src/libc/mips/sys'
+make[4]: 'sys.a' is up to date.
+make[4]: Leaving directory '/home/osboxes/retrobsd/src/libc/mips/sys'
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/libc/mips'
+install -m 755 -d /home/osboxes/retrobsd/lib
+make[2]: Leaving directory '/home/osboxes/retrobsd/src/libc'
+make[2]: Entering directory '/home/osboxes/retrobsd/src/libm'
+make[2]: Nothing to be done for 'all'.
+make[2]: Nothing to be done for 'install'.
+make[2]: Leaving directory '/home/osboxes/retrobsd/src/libm'
+make[2]: Entering directory '/home/osboxes/retrobsd/src/libutil'
+make[2]: Nothing to be done for 'all'.
+make[2]: Nothing to be done for 'install'.
+make[2]: Leaving directory '/home/osboxes/retrobsd/src/libutil'
+make[2]: Entering directory '/home/osboxes/retrobsd/src/libtermlib'
+cd termcap && make
+make[3]: Entering directory '/home/osboxes/retrobsd/src/libtermlib/termcap'
+make[3]: 'termcap.full' is up to date.
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/libtermlib/termcap'
+make -C termcap install
+make[3]: Entering directory '/home/osboxes/retrobsd/src/libtermlib/termcap'
+install -c -m 444 termcap.small /home/osboxes/retrobsd/etc/termcap
+install -c -m 444 termcap.full /home/osboxes/retrobsd/etc/termcap.full
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/libtermlib/termcap'
+make[2]: Leaving directory '/home/osboxes/retrobsd/src/libtermlib'
+make[2]: Entering directory '/home/osboxes/retrobsd/src/libcurses'
+make[2]: Nothing to be done for 'all'.
+make[2]: Nothing to be done for 'install'.
+make[2]: Leaving directory '/home/osboxes/retrobsd/src/libcurses'
+make[2]: Entering directory '/home/osboxes/retrobsd/src/libvmf'
+make[2]: Nothing to be done for 'all'.
+cp vmf.0 /home/osboxes/retrobsd/share/man/cat3/
+make[2]: Leaving directory '/home/osboxes/retrobsd/src/libvmf'
+make[2]: Entering directory '/home/osboxes/retrobsd/src/libwiznet'
+make[2]: Nothing to be done for 'all'.
+make[2]: Nothing to be done for 'install'.
+make[2]: Leaving directory '/home/osboxes/retrobsd/src/libwiznet'
+make[2]: Entering directory '/home/osboxes/retrobsd/src/libreadline'
+make[2]: Nothing to be done for 'all'.
+install -d /home/osboxes/retrobsd/include/readline/
+cp -p readline.h history.h /home/osboxes/retrobsd/include/readline/
+make[2]: Leaving directory '/home/osboxes/retrobsd/src/libreadline'
+make[2]: Entering directory '/home/osboxes/retrobsd/src/libgpanel'
+make[2]: Nothing to be done for 'all'.
+cp gpanel.0 /home/osboxes/retrobsd/share/man/cat3/
+make[2]: Leaving directory '/home/osboxes/retrobsd/src/libgpanel'
+make[2]: Entering directory '/home/osboxes/retrobsd/src/share'
+cd misc; make -w
+make[3]: Entering directory '/home/osboxes/retrobsd/src/share/misc'
+make[3]: Nothing to be done for 'all'.
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/share/misc'
+cd zoneinfo; make -w
+make[3]: Entering directory '/home/osboxes/retrobsd/src/share/zoneinfo'
+make[3]: Nothing to be done for 'all'.
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/share/zoneinfo'
+for i in misc zoneinfo; do \
+		(cd $i; make -w DESTDIR=/home/osboxes/retrobsd install); done
+make[3]: Entering directory '/home/osboxes/retrobsd/src/share/misc'
+mkdir -p /home/osboxes/retrobsd/share/misc
+chmod a+r,a+x /home/osboxes/retrobsd/share/misc
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/share/misc'
+make[3]: Entering directory '/home/osboxes/retrobsd/src/share/zoneinfo'
+(umask 22; ./zic -v -d /home/osboxes/retrobsd/share/zoneinfo asia australasia europe etcetera northamerica pacificnew systemv)
+install -c /home/osboxes/retrobsd/share/zoneinfo/US/Pacific /home/osboxes/retrobsd/etc/localtime
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/share/zoneinfo'
+make[2]: Leaving directory '/home/osboxes/retrobsd/src/share'
+make[2]: Entering directory '/home/osboxes/retrobsd/src/cmd'
+make -C adb -w
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/adb'
+make[3]: Nothing to be done for 'all'.
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/adb'
+make -C adc-demo -w
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/adc-demo'
+make[3]: Nothing to be done for 'all'.
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/adc-demo'
+make -C aout -w
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/aout'
+make[3]: Nothing to be done for 'all'.
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/aout'
+make -C ar -w
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/ar'
+make[3]: Nothing to be done for 'all'.
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/ar'
+make -C as -w
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/as'
+make[3]: Nothing to be done for 'all'.
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/as'
+make -C awk -w
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/awk'
+make[3]: 'awk' is up to date.
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/awk'
+make -C basic -w
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/basic'
+make[3]: Nothing to be done for 'all'.
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/basic'
+make -C calendar -w
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/calendar'
+make[3]: Nothing to be done for 'all'.
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/calendar'
+make -C cc -w
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/cc'
+make[3]: Nothing to be done for 'all'.
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/cc'
+make -C chflags -w
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/chflags'
+make[3]: Nothing to be done for 'all'.
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/chflags'
+make -C chpass -w
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/chpass'
+make[3]: Nothing to be done for 'all'.
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/chpass'
+make -C cpp -w
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/cpp'
+make[3]: Nothing to be done for 'all'.
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/cpp'
+make -C dc -w
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/dc'
+make[3]: Nothing to be done for 'all'.
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/dc'
+make -C diff -w
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/diff'
+make[3]: Nothing to be done for 'all'.
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/diff'
+make -C emg -w
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/emg'
+make[3]: Nothing to be done for 'all'.
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/emg'
+make -C env -w
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/env'
+make[3]: Nothing to be done for 'all'.
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/env'
+make -C fdisk -w
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/fdisk'
+make[3]: Nothing to be done for 'all'.
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/fdisk'
+make -C find -w
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/find'
+make[3]: Nothing to be done for 'all'.
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/find'
+make -C fold -w
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/fold'
+make[3]: Nothing to be done for 'all'.
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/fold'
+make -C forth -w
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/forth'
+make[3]: Nothing to be done for 'all'.
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/forth'
+make -C fstat -w
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/fstat'
+make[3]: Nothing to be done for 'all'.
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/fstat'
+make -C glcdtest -w
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/glcdtest'
+make[3]: Nothing to be done for 'all'.
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/glcdtest'
+make -C hostname -w
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/hostname'
+make[3]: Nothing to be done for 'all'.
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/hostname'
+make -C id -w
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/id'
+install -c groups.sh groups
+install -c whoami.sh whoami
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/id'
+make -C la -w
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/la'
+make[3]: Nothing to be done for 'all'.
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/la'
+make -C lcc -w
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/lcc'
+make[3]: Nothing to be done for 'all'.
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/lcc'
+make -C lcpp -w
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/lcpp'
+make[3]: Nothing to be done for 'all'.
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/lcpp'
+make -C ld -w
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/ld'
+make[3]: Nothing to be done for 'all'.
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/ld'
+make -C ls -w
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/ls'
+make[3]: Nothing to be done for 'all'.
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/ls'
+make -C login -w
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/login'
+make[3]: Nothing to be done for 'all'.
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/login'
+make -C make -w
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/make'
+make[3]: Nothing to be done for 'all'.
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/make'
+make -C man -w
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/man'
+make[3]: Nothing to be done for 'all'.
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/man'
+make -C md5 -w
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/md5'
+make[3]: Nothing to be done for 'all'.
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/md5'
+make -C med -w
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/med'
+make[3]: Nothing to be done for 'all'.
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/med'
+make -C more -w
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/more'
+make[3]: Nothing to be done for 'all'.
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/more'
+make -C nm -w
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/nm'
+make[3]: Nothing to be done for 'all'.
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/nm'
+make -C passwd -w
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/passwd'
+make[3]: Nothing to be done for 'all'.
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/passwd'
+make -C pdc -w
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/pdc'
+make[3]: Nothing to be done for 'all'.
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/pdc'
+make -C picoc -w
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/picoc'
+make[3]: Nothing to be done for 'all'.
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/picoc'
+make -C portio -w
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/portio'
+make[3]: Nothing to be done for 'all'.
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/portio'
+make -C printf -w
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/printf'
+make[3]: Nothing to be done for 'all'.
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/printf'
+make -C pwm -w
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/pwm'
+make[3]: Nothing to be done for 'all'.
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/pwm'
+make -C ranlib -w
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/ranlib'
+make[3]: Nothing to be done for 'all'.
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/ranlib'
+make -C re -w
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/re'
+make[3]: Nothing to be done for 'all'.
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/re'
+make -C renice -w
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/renice'
+make[3]: Nothing to be done for 'all'.
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/renice'
+make -C retroforth -w
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/retroforth'
+make[3]: Nothing to be done for 'all'.
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/retroforth'
+make -C scm -w
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/scm'
+make[3]: Nothing to be done for 'all'.
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/scm'
+make -C sed -w
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/sed'
+make[3]: Nothing to be done for 'all'.
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/sed'
+make -C setty -w
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/setty'
+make[3]: Nothing to be done for 'all'.
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/setty'
+make -C sh -w
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/sh'
+make[3]: Nothing to be done for 'all'.
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/sh'
+make -C sl -w
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/sl'
+make[3]: Nothing to be done for 'all'.
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/sl'
+make -C smallc -w
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/smallc'
+make[3]: Nothing to be done for 'all'.
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/smallc'
+make -C smlrc -w
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/smlrc'
+make[3]: Nothing to be done for 'all'.
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/smlrc'
+make -C smux -w
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/smux'
+make -C retro
+make[4]: Entering directory '/home/osboxes/retrobsd/src/cmd/smux/retro'
+make[4]: Nothing to be done for 'all'.
+make[4]: Leaving directory '/home/osboxes/retrobsd/src/cmd/smux/retro'
+make -C linux
+make[4]: Entering directory '/home/osboxes/retrobsd/src/cmd/smux/linux'
+make[4]: 'smux' is up to date.
+make[4]: Leaving directory '/home/osboxes/retrobsd/src/cmd/smux/linux'
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/smux'
+make -C stty -w
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/stty'
+make[3]: Nothing to be done for 'all'.
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/stty'
+make -C sysctl -w
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/sysctl'
+make[3]: Nothing to be done for 'all'.
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/sysctl'
+make -C test -w
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/test'
+make[3]: Nothing to be done for 'all'.
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/test'
+make -C uname -w
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/uname'
+make[3]: Nothing to be done for 'all'.
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/uname'
+make -C wiznet -w
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/wiznet'
+make[3]: Nothing to be done for 'all'.
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/wiznet'
+make -C xargs -w
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/xargs'
+make[3]: Nothing to be done for 'all'.
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/xargs'
+make -C zmodem -w
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/zmodem'
+make[3]: Nothing to be done for 'all'.
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/zmodem'
+make -C gtest -w
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/gtest'
+make[3]: Nothing to be done for 'all'.
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/gtest'
+make -C msec -w
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/msec'
+make[3]: Nothing to be done for 'all'.
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/msec'
+make -C cron -w
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/cron'
+make[3]: Nothing to be done for 'all'.
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/cron'
+make -C compress -w
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/compress'
+make[3]: 'compress' is up to date.
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/compress'
+make -C date2 -w
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/date2'
+make[3]: Nothing to be done for 'all'.
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/date2'
+make -C tip -w
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/tip'
+cd aculib; make -w
+make[4]: Entering directory '/home/osboxes/retrobsd/src/cmd/tip/aculib'
+make[4]: Nothing to be done for 'all'.
+make[4]: Leaving directory '/home/osboxes/retrobsd/src/cmd/tip/aculib'
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/tip'
+make -C talloc -w
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/talloc'
+make[3]: Nothing to be done for 'all'.
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/talloc'
+make -C uucp -w
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/uucp'
+cd aculib && make
+make[4]: Entering directory '/home/osboxes/retrobsd/src/cmd/uucp/aculib'
+make[4]: 'libacu.a' is up to date.
+make[4]: Leaving directory '/home/osboxes/retrobsd/src/cmd/uucp/aculib'
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/uucp'
+make -C yacc -w
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/yacc'
+make[3]: Nothing to be done for 'all'.
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/yacc'
+make -C chown -w
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/chown'
+make[3]: Nothing to be done for 'all'.
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/chown'
+make -C chroot -w
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/chroot'
+make[3]: Nothing to be done for 'all'.
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/chroot'
+make -C disktool -w
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/disktool'
+make[3]: Nothing to be done for 'all'.
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/disktool'
+make -C fsck -w
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/fsck'
+make[3]: Nothing to be done for 'all'.
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/fsck'
+make -C getty -w
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/getty'
+make[3]: Nothing to be done for 'all'.
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/getty'
+make -C init -w
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/init'
+make[3]: Nothing to be done for 'all'.
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/init'
+make -C mkfs -w
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/mkfs'
+make[3]: Nothing to be done for 'all'.
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/mkfs'
+make -C mknod -w
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/mknod'
+make[3]: Nothing to be done for 'all'.
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/mknod'
+make -C mkpasswd -w
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/mkpasswd'
+make[3]: Nothing to be done for 'all'.
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/mkpasswd'
+make -C mount -w
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/mount'
+make[3]: Nothing to be done for 'all'.
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/mount'
+make -C pstat -w
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/pstat'
+make[3]: Nothing to be done for 'all'.
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/pstat'
+make -C reboot -w
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/reboot'
+make[3]: Nothing to be done for 'all'.
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/reboot'
+make -C shutdown -w
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/shutdown'
+make[3]: Nothing to be done for 'all'.
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/shutdown'
+make -C umount -w
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/umount'
+make[3]: Nothing to be done for 'all'.
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/umount'
+make -C update -w
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/update'
+make[3]: Nothing to be done for 'all'.
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/update'
+make -C vipw -w
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/vipw'
+make[3]: Nothing to be done for 'all'.
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/vipw'
+make -C virus -w
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/virus'
+make[3]: 'virus' is up to date.
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/virus'
+install basename cal cat cb chgrp chmod cmp col comm cp dd diskspeed du echo ed fgrep file grep head hostid join kill last ln mesg mkdir mv nice od pagesize pr printenv pwd rev rm rmail rmdir size sleep sort split sum sync tail tar tee time touch tr tsort tty uniq w wc whereis who bc expr egrep strip /home/osboxes/retrobsd/bin/
+for i in adb adc-demo aout ar as awk basic calendar cc chflags chpass cpp dc diff emg env fdisk find fold forth fstat glcdtest hostname id la lcc lcpp ld ls login make man md5 med more nm passwd pdc picoc portio printf pwm ranlib re renice retroforth scm sed setty sh sl smallc smlrc smux stty sysctl test uname wiznet xargs zmodem gtest msec cron compress date2 tip talloc uucp yacc chown chroot disktool fsck getty init mkfs mknod mkpasswd mount pstat reboot shutdown umount update vipw virus; do \
+		make -C $i -w DESTDIR=/home/osboxes/retrobsd install; done
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/adb'
+install adb /home/osboxes/retrobsd/bin/
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/adb'
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/adc-demo'
+install adc-demo /home/osboxes/retrobsd/bin/
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/adc-demo'
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/aout'
+install aout /home/osboxes/retrobsd/bin/
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/aout'
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/ar'
+install ar /home/osboxes/retrobsd/bin/
+cp ar.1.0 /home/osboxes/retrobsd/share/man/cat1/ar.0
+cp ar.5.0 /home/osboxes/retrobsd/share/man/cat5/ar.0
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/ar'
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/as'
+install as /home/osboxes/retrobsd/bin/
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/as'
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/awk'
+install awk /home/osboxes/retrobsd/bin/
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/awk'
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/basic'
+install basic /home/osboxes/retrobsd/bin/
+install renumber /home/osboxes/retrobsd/bin/
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/basic'
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/calendar'
+install calendar /home/osboxes/retrobsd/bin/calendar
+cp calendar.0 /home/osboxes/retrobsd/share/man/cat1/
+install calendars/calendar.* /home/osboxes/retrobsd/share/calendar/
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/calendar'
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/cc'
+install cc /home/osboxes/retrobsd/bin/
+install cc /home/osboxes/retrobsd/bin/scc
+install cc /home/osboxes/retrobsd/bin/lcc
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/cc'
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/chflags'
+install chflags /home/osboxes/retrobsd/bin/chflags
+cp chflags.0 /home/osboxes/retrobsd/share/man/cat1/
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/chflags'
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/chpass'
+install -m 4755 chpass /home/osboxes/retrobsd/bin/chpass
+rm -f /home/osboxes/retrobsd/bin/chfn; ln /home/osboxes/retrobsd/bin/chpass /home/osboxes/retrobsd/bin/chfn
+rm -f /home/osboxes/retrobsd/bin/chsh; ln /home/osboxes/retrobsd/bin/chpass /home/osboxes/retrobsd/bin/chsh
+cp chpass.0 /home/osboxes/retrobsd/share/man/cat1/
+rm -f /home/osboxes/retrobsd/share/man/cat1/chfn.0
+rm -f /home/osboxes/retrobsd/share/man/cat1/chsh.0
+ln /home/osboxes/retrobsd/share/man/cat1/chpass.0 /home/osboxes/retrobsd/share/man/cat1/chfn.0
+ln /home/osboxes/retrobsd/share/man/cat1/chpass.0 /home/osboxes/retrobsd/share/man/cat1/chsh.0
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/chpass'
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/cpp'
+install cpp /home/osboxes/retrobsd/bin/
+cp cpp.0 /home/osboxes/retrobsd/share/man/cat1/
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/cpp'
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/dc'
+install dc /home/osboxes/retrobsd/bin/dc
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/dc'
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/diff'
+install diff /home/osboxes/retrobsd/bin/diff
+install diffh /home/osboxes/retrobsd/libexec/diffh
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/diff'
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/emg'
+install emg /home/osboxes/retrobsd/bin/emg
+cp emg.0 /home/osboxes/retrobsd/share/man/cat1/
+cp -p emg.keys /home/osboxes/retrobsd/share/emg.keys
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/emg'
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/env'
+install env /home/osboxes/retrobsd/bin/
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/env'
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/fdisk'
+install -m 755 fdisk /home/osboxes/retrobsd/sbin
+cp fdisk.0 /home/osboxes/retrobsd/share/man/cat8
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/fdisk'
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/find'
+install find /home/osboxes/retrobsd/bin/find
+install bigram /home/osboxes/retrobsd/libexec/bigram
+install code /home/osboxes/retrobsd/libexec/code
+install updatedb.sh /home/osboxes/retrobsd/sbin/updatedb
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/find'
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/fold'
+install fold /home/osboxes/retrobsd/bin/fold
+cp fold.0 /home/osboxes/retrobsd/share/man/cat1/
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/fold'
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/forth'
+install forth /home/osboxes/retrobsd/bin/
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/forth'
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/fstat'
+cp fstat.0 /home/osboxes/retrobsd/share/man/cat8
+install -m 2755 fstat /home/osboxes/retrobsd/bin/fstat
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/fstat'
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/glcdtest'
+install -m 755 glcdtest /home/osboxes/retrobsd/bin
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/glcdtest'
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/hostname'
+install hostname /home/osboxes/retrobsd/bin/
+cp hostname.0 /home/osboxes/retrobsd/share/man/cat1/
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/hostname'
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/id'
+install -c groups.sh groups
+install -c whoami.sh whoami
+cp id.0 groups.0 whoami.0 /home/osboxes/retrobsd/share/man/cat1/
+install id /home/osboxes/retrobsd/bin/id
+install groups.sh /home/osboxes/retrobsd/bin/groups
+install whoami.sh /home/osboxes/retrobsd/bin/whoami
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/id'
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/la'
+install la /home/osboxes/retrobsd/bin/
+cp la.0 /home/osboxes/retrobsd/share/man/cat1/
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/la'
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/lcc'
+install lcc /home/osboxes/retrobsd/bin/
+cp lcc.0 /home/osboxes/retrobsd/share/man/cat1/
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/lcc'
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/lcpp'
+install lcpp /home/osboxes/retrobsd/bin/
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/lcpp'
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/ld'
+install ld /home/osboxes/retrobsd/bin/ld
+cp ld.0 /home/osboxes/retrobsd/share/man/cat1/
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/ld'
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/ls'
+install ls /home/osboxes/retrobsd/bin/ls
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/ls'
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/login'
+install -m 4755 login /home/osboxes/retrobsd/bin/login
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/login'
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/make'
+install xmake /home/osboxes/retrobsd/bin/make
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/make'
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/man'
+install apropos /home/osboxes/retrobsd/bin/apropos
+install man /home/osboxes/retrobsd/bin/man
+ln /home/osboxes/retrobsd/bin/apropos /home/osboxes/retrobsd/bin/whatis
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/man'
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/md5'
+install md5 /home/osboxes/retrobsd/bin/
+cp md5.0 /home/osboxes/retrobsd/share/man/cat1
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/md5'
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/med'
+install med /home/osboxes/retrobsd/bin/
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/med'
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/more'
+install more /home/osboxes/retrobsd/bin/more
+cp more.help /home/osboxes/retrobsd/share/misc/more.help
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/more'
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/nm'
+install nm /home/osboxes/retrobsd/bin/nm
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/nm'
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/passwd'
+install -m 4755 passwd /home/osboxes/retrobsd/bin/passwd
+cp passwd.0 /home/osboxes/retrobsd/share/man/cat1/
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/passwd'
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/pdc'
+install pdc /home/osboxes/retrobsd/bin/
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/pdc'
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/picoc'
+cp picoc /home/osboxes/retrobsd/bin
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/picoc'
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/portio'
+install portio /home/osboxes/retrobsd/bin/
+install lol /home/osboxes/retrobsd/bin/
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/portio'
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/printf'
+cp printf.0 /home/osboxes/retrobsd/share/man/cat1/
+install printf /home/osboxes/retrobsd/bin/printf
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/printf'
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/pwm'
+install -m 755 pwm /home/osboxes/retrobsd/bin
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/pwm'
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/ranlib'
+cp ranlib.5.0 /home/osboxes/retrobsd/share/man/cat5/ranlib.0
+cp ranlib.0 /home/osboxes/retrobsd/share/man/cat1/ranlib.0
+install ranlib /home/osboxes/retrobsd/bin/ranlib
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/ranlib'
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/re'
+install re /home/osboxes/retrobsd/bin/re
+cp -p help.txt /home/osboxes/retrobsd/share/re.help
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/re'
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/renice'
+cp renice.0 /home/osboxes/retrobsd/share/man/cat8/
+install renice /home/osboxes/retrobsd/bin/renice
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/renice'
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/retroforth'
+install retroforth /home/osboxes/retrobsd/bin/
+cp retroImage /home/osboxes/retrobsd/lib/
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/retroforth'
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/scm'
+install scm /home/osboxes/retrobsd/bin/
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/scm'
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/sed'
+install sed /home/osboxes/retrobsd/bin/
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/sed'
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/setty'
+install setty /home/osboxes/retrobsd/bin/
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/setty'
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/sh'
+install sh /home/osboxes/retrobsd/bin/
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/sh'
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/sl'
+install sl /home/osboxes/retrobsd/bin/
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/sl'
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/smallc'
+cp smallc /home/osboxes/retrobsd/libexec/
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/smallc'
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/smlrc'
+cp smlrc /home/osboxes/retrobsd/libexec/
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/smlrc'
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/smux'
+make -C retro install
+make[4]: Entering directory '/home/osboxes/retrobsd/src/cmd/smux/retro'
+install -m 755 smux /home/osboxes/retrobsd/bin
+make[4]: Leaving directory '/home/osboxes/retrobsd/src/cmd/smux/retro'
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/smux'
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/stty'
+cp stty.0 /home/osboxes/retrobsd/share/man/cat1/
+install stty /home/osboxes/retrobsd/bin/stty
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/stty'
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/sysctl'
+install sysctl /home/osboxes/retrobsd/bin/sysctl
+cp sysctl.0 /home/osboxes/retrobsd/share/man/cat8/
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/sysctl'
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/test'
+install test /home/osboxes/retrobsd/bin/
+ln /home/osboxes/retrobsd/bin/test /home/osboxes/retrobsd/bin/[
+cp test.0 /home/osboxes/retrobsd/share/man/cat1/
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/test'
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/uname'
+cp uname.0 /home/osboxes/retrobsd/share/man/cat1/
+install uname /home/osboxes/retrobsd/bin/uname
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/uname'
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/wiznet'
+install telnet ntpdate chat-server web-client web-server /home/osboxes/retrobsd/bin/
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/wiznet'
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/xargs'
+install xargs /home/osboxes/retrobsd/bin/
+cp xargs.0 /home/osboxes/retrobsd/share/man/cat1/
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/xargs'
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/zmodem'
+install rz /home/osboxes/retrobsd/bin/
+install sz /home/osboxes/retrobsd/bin/
+cp rz.0 /home/osboxes/retrobsd/share/man/cat1/
+cp sz.0 /home/osboxes/retrobsd/share/man/cat1/
+ln /home/osboxes/retrobsd/bin/sz /home/osboxes/retrobsd/bin/sb
+ln /home/osboxes/retrobsd/bin/sz /home/osboxes/retrobsd/bin/sx
+ln /home/osboxes/retrobsd/bin/rz /home/osboxes/retrobsd/bin/rb
+ln /home/osboxes/retrobsd/bin/rz /home/osboxes/retrobsd/bin/rx
+ln /home/osboxes/retrobsd/share/man/cat1/sz.0 /home/osboxes/retrobsd/share/man/cat1/sb.0
+ln /home/osboxes/retrobsd/share/man/cat1/sz.0 /home/osboxes/retrobsd/share/man/cat1/sx.0
+ln /home/osboxes/retrobsd/share/man/cat1/rz.0 /home/osboxes/retrobsd/share/man/cat1/rb.0
+ln /home/osboxes/retrobsd/share/man/cat1/rz.0 /home/osboxes/retrobsd/share/man/cat1/rx.0
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/zmodem'
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/gtest'
+install -m 755 globread /home/osboxes/retrobsd/bin
+install -m 755 globdump /home/osboxes/retrobsd/bin
+install -m 755 globwrite /home/osboxes/retrobsd/bin
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/gtest'
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/msec'
+install -m 755 msec /home/osboxes/retrobsd/bin
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/msec'
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/cron'
+cp cron /home/osboxes/retrobsd/sbin/
+cp crontab /home/osboxes/retrobsd/bin/
+sh putman.sh crontab.1 /home/osboxes/retrobsd/share/man
+sh putman.sh cron.8    /home/osboxes/retrobsd/share/man
+sh putman.sh crontab.5 /home/osboxes/retrobsd/share/man
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/cron'
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/compress'
+cp compress /home/osboxes/retrobsd/bin/compress
+cp compress /home/osboxes/retrobsd/bin/uncompress
+cp compress /home/osboxes/retrobsd/bin/zcat
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/compress'
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/date2'
+install -m 755 date /home/osboxes/retrobsd/bin
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/date2'
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/tip'
+cd aculib; make -w
+make[4]: Entering directory '/home/osboxes/retrobsd/src/cmd/tip/aculib'
+make[4]: Nothing to be done for 'all'.
+make[4]: Leaving directory '/home/osboxes/retrobsd/src/cmd/tip/aculib'
+cd aculib; make -w install
+make[4]: Entering directory '/home/osboxes/retrobsd/src/cmd/tip/aculib'
+make[4]: Nothing to be done for 'install'.
+make[4]: Leaving directory '/home/osboxes/retrobsd/src/cmd/tip/aculib'
+cp tip /home/osboxes/retrobsd/bin/tip
+rm -f /home/osboxes/retrobsd/bin/cu
+touch /home/osboxes/retrobsd/var/log/aculog
+chmod 600 /home/osboxes/retrobsd/var/log/aculog
+mkdir -p /home/osboxes/retrobsd/var/lock
+create /etc/remote and /etc/phones
+cp remote-file /home/osboxes/retrobsd/etc/remote
+cp phones-file /home/osboxes/retrobsd/etc/phones
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/tip'
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/talloc'
+install -m 755 talloc /home/osboxes/retrobsd/sbin
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/talloc'
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/uucp'
+cp uucico uucp uux uuxqt uulog uuclean uuname uupoll uusnap uuencode uudecode uusend uuq /home/osboxes/retrobsd/bin
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/uucp'
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/yacc'
+install yacc /home/osboxes/retrobsd/bin/
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/yacc'
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/chown'
+install chown /home/osboxes/retrobsd/sbin/chown
+cp chown.0 /home/osboxes/retrobsd/share/man/cat8/
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/chown'
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/chroot'
+install -m 4751 chroot /home/osboxes/retrobsd/sbin
+cp chroot.0 /home/osboxes/retrobsd/share/man/cat8/
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/chroot'
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/disktool'
+install disktool /home/osboxes/retrobsd/sbin/
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/disktool'
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/fsck'
+install fsck /home/osboxes/retrobsd/sbin/fsck
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/fsck'
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/getty'
+install getty /home/osboxes/retrobsd/libexec/getty
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/getty'
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/init'
+cp init.0 /home/osboxes/retrobsd/share/man/cat8/
+install -m 700 init /home/osboxes/retrobsd/sbin/init
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/init'
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/mkfs'
+cp mkfs.0 /home/osboxes/retrobsd/share/man/cat8/
+install mkfs /home/osboxes/retrobsd/sbin/mkfs
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/mkfs'
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/mknod'
+cp mknod.0 /home/osboxes/retrobsd/share/man/cat8/
+install mknod /home/osboxes/retrobsd/sbin/mknod
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/mknod'
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/mkpasswd'
+install mkpasswd /home/osboxes/retrobsd/sbin/mkpasswd
+cp mkpasswd.0 /home/osboxes/retrobsd/share/man/cat8/
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/mkpasswd'
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/mount'
+cp mount.0 /home/osboxes/retrobsd/share/man/cat8/
+install mount /home/osboxes/retrobsd/sbin/mount
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/mount'
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/pstat'
+cp pstat.0 /home/osboxes/retrobsd/share/man/cat8/
+install -m 2755 pstat /home/osboxes/retrobsd/sbin/pstat
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/pstat'
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/reboot'
+cp reboot.0 /home/osboxes/retrobsd/share/man/cat8/
+ln /home/osboxes/retrobsd/share/man/cat8/reboot.0 /home/osboxes/retrobsd/share/man/cat8/fastboot.0
+ln /home/osboxes/retrobsd/share/man/cat8/reboot.0 /home/osboxes/retrobsd/share/man/cat8/halt.0
+install reboot /home/osboxes/retrobsd/sbin/reboot
+ln -f /home/osboxes/retrobsd/sbin/reboot /home/osboxes/retrobsd/sbin/halt
+ln -f /home/osboxes/retrobsd/sbin/reboot /home/osboxes/retrobsd/sbin/fastboot
+ln -f /home/osboxes/retrobsd/sbin/reboot /home/osboxes/retrobsd/sbin/poweroff
+ln -f /home/osboxes/retrobsd/sbin/reboot /home/osboxes/retrobsd/sbin/bootloader
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/reboot'
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/shutdown'
+cp shutdown.0 /home/osboxes/retrobsd/share/man/cat8/
+install -m 4750 shutdown /home/osboxes/retrobsd/sbin/shutdown
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/shutdown'
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/umount'
+cp umount.0 /home/osboxes/retrobsd/share/man/cat8/
+install umount /home/osboxes/retrobsd/sbin/umount
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/umount'
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/update'
+cp update.0 /home/osboxes/retrobsd/share/man/cat8/
+install update /home/osboxes/retrobsd/sbin/update
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/update'
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/vipw'
+install vipw /home/osboxes/retrobsd/sbin/
+cp vipw.0 /home/osboxes/retrobsd/share/man/cat8/
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/vipw'
+make[3]: Entering directory '/home/osboxes/retrobsd/src/cmd/virus'
+install virus /home/osboxes/retrobsd/bin/vi
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/cmd/virus'
+for i in false nohup true ; do install $i.sh /home/osboxes/retrobsd/bin/$i; done
+for i in mail su; do \
+		install -m 4751 $i /home/osboxes/retrobsd/bin/$i; done
+for i in df; do \
+		install -m 2751 $i /home/osboxes/retrobsd/bin/$i; done
+for i in ps iostat vmstat; do \
+		install -m 2751 $i /home/osboxes/retrobsd/bin/$i; done
+for i in wall write; do \
+		install -m 2751 $i /home/osboxes/retrobsd/bin/$i; done
+make[2]: Leaving directory '/home/osboxes/retrobsd/src/cmd'
+make[2]: Entering directory '/home/osboxes/retrobsd/src/games'
+make -C adventure -w
+make[3]: Entering directory '/home/osboxes/retrobsd/src/games/adventure'
+make[3]: Nothing to be done for 'all'.
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/games/adventure'
+make -C atc -w
+make[3]: Entering directory '/home/osboxes/retrobsd/src/games/atc'
+make[3]: Nothing to be done for 'all'.
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/games/atc'
+make -C backgammon -w
+make[3]: Entering directory '/home/osboxes/retrobsd/src/games/backgammon'
+make[3]: Nothing to be done for 'all'.
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/games/backgammon'
+make -C battlestar -w
+make[3]: Entering directory '/home/osboxes/retrobsd/src/games/battlestar'
+make[3]: Nothing to be done for 'all'.
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/games/battlestar'
+make -C boggle -w
+make[3]: Entering directory '/home/osboxes/retrobsd/src/games/boggle'
+make[3]: Nothing to be done for 'all'.
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/games/boggle'
+make -C btlgammon -w
+make[3]: Entering directory '/home/osboxes/retrobsd/src/games/btlgammon'
+make[3]: Nothing to be done for 'all'.
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/games/btlgammon'
+make -C caesar -w
+make[3]: Entering directory '/home/osboxes/retrobsd/src/games/caesar'
+make[3]: Nothing to be done for 'all'.
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/games/caesar'
+make -C cribbage -w
+make[3]: Entering directory '/home/osboxes/retrobsd/src/games/cribbage'
+make[3]: Nothing to be done for 'all'.
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/games/cribbage'
+make -C fortune -w
+make[3]: Entering directory '/home/osboxes/retrobsd/src/games/fortune'
+make[3]: Nothing to be done for 'all'.
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/games/fortune'
+make -C hangman -w
+make[3]: Entering directory '/home/osboxes/retrobsd/src/games/hangman'
+make[3]: Nothing to be done for 'all'.
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/games/hangman'
+make -C mille -w
+make[3]: Entering directory '/home/osboxes/retrobsd/src/games/mille'
+make[3]: Nothing to be done for 'all'.
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/games/mille'
+make -C monop -w
+make[3]: Entering directory '/home/osboxes/retrobsd/src/games/monop'
+make[3]: Nothing to be done for 'all'.
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/games/monop'
+make -C pom -w
+make[3]: Entering directory '/home/osboxes/retrobsd/src/games/pom'
+make[3]: Nothing to be done for 'all'.
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/games/pom'
+make -C pig -w
+make[3]: Entering directory '/home/osboxes/retrobsd/src/games/pig'
+make[3]: Nothing to be done for 'all'.
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/games/pig'
+make -C quiz -w
+make[3]: Entering directory '/home/osboxes/retrobsd/src/games/quiz'
+make[3]: Nothing to be done for 'all'.
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/games/quiz'
+make -C robots -w
+make[3]: Entering directory '/home/osboxes/retrobsd/src/games/robots'
+make[3]: Nothing to be done for 'all'.
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/games/robots'
+make -C rogue -w
+make[3]: Entering directory '/home/osboxes/retrobsd/src/games/rogue'
+make[3]: Nothing to be done for 'all'.
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/games/rogue'
+make -C sail -w
+make[3]: Entering directory '/home/osboxes/retrobsd/src/games/sail'
+make[3]: Nothing to be done for 'all'.
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/games/sail'
+make -C snake -w
+make[3]: Entering directory '/home/osboxes/retrobsd/src/games/snake'
+make[3]: Nothing to be done for 'all'.
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/games/snake'
+make -C trek -w
+make[3]: Entering directory '/home/osboxes/retrobsd/src/games/trek'
+make[3]: Nothing to be done for 'all'.
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/games/trek'
+for i in adventure atc backgammon battlestar boggle btlgammon caesar cribbage fortune hangman mille monop pom pig quiz robots rogue sail snake trek; do \
+		make -C $i -w DESTDIR=/home/osboxes/retrobsd install; done
+make[3]: Entering directory '/home/osboxes/retrobsd/src/games/adventure'
+install adventure /home/osboxes/retrobsd/games/
+cp adventure.dat /home/osboxes/retrobsd/games/lib/
+cp adventure.0 /home/osboxes/retrobsd/share/man/cat6/
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/games/adventure'
+make[3]: Entering directory '/home/osboxes/retrobsd/src/games/atc'
+install atc /home/osboxes/retrobsd/games/
+mkdir -p /home/osboxes/retrobsd/games/lib/atc
+cp -p games/* /home/osboxes/retrobsd/games/lib/atc
+cp atc.0 /home/osboxes/retrobsd/share/man/cat6/
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/games/atc'
+make[3]: Entering directory '/home/osboxes/retrobsd/src/games/backgammon'
+install backgammon /home/osboxes/retrobsd/games/
+install teachgammon /home/osboxes/retrobsd/games/
+cp backgammon.0 /home/osboxes/retrobsd/share/man/cat6/
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/games/backgammon'
+make[3]: Entering directory '/home/osboxes/retrobsd/src/games/battlestar'
+install battlestar /home/osboxes/retrobsd/games/
+cp battle_strings /home/osboxes/retrobsd/games/lib/
+cp battlestar.0 /home/osboxes/retrobsd/share/man/cat6/
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/games/battlestar'
+make[3]: Entering directory '/home/osboxes/retrobsd/src/games/boggle'
+install boggle /home/osboxes/retrobsd/games/
+install -m 644 bogdict /home/osboxes/retrobsd/games/lib/bogdict
+cp boggle.0 /home/osboxes/retrobsd/share/man/cat6/
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/games/boggle'
+make[3]: Entering directory '/home/osboxes/retrobsd/src/games/btlgammon'
+install btlgammon /home/osboxes/retrobsd/games/
+install -m 644 backrules /home/osboxes/retrobsd/games/lib/backrules
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/games/btlgammon'
+make[3]: Entering directory '/home/osboxes/retrobsd/src/games/caesar'
+install caesar /home/osboxes/retrobsd/games/
+install -m 644 caesar.0 /home/osboxes/retrobsd/share/man/cat6/
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/games/caesar'
+make[3]: Entering directory '/home/osboxes/retrobsd/src/games/cribbage'
+install cribbage /home/osboxes/retrobsd/games/
+install -m 644 crib.instr /home/osboxes/retrobsd/games/lib/crib.instr
+cp cribbage.0 /home/osboxes/retrobsd/share/man/cat6/
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/games/cribbage'
+make[3]: Entering directory '/home/osboxes/retrobsd/src/games/fortune'
+install fortune /home/osboxes/retrobsd/games/
+cp fortune.0 /home/osboxes/retrobsd/share/man/cat6/
+cp fortunes.dat /home/osboxes/retrobsd/games/lib/
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/games/fortune'
+make[3]: Entering directory '/home/osboxes/retrobsd/src/games/hangman'
+install hangman /home/osboxes/retrobsd/games/
+install -m 644 hangman.0 /home/osboxes/retrobsd/share/man/cat6/
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/games/hangman'
+make[3]: Entering directory '/home/osboxes/retrobsd/src/games/mille'
+install mille /home/osboxes/retrobsd/games/
+install -m 644 mille.0 /home/osboxes/retrobsd/share/man/cat6/
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/games/mille'
+make[3]: Entering directory '/home/osboxes/retrobsd/src/games/monop'
+install monop /home/osboxes/retrobsd/games/
+cp monop.0 /home/osboxes/retrobsd/share/man/cat6/
+cp cards.pck /home/osboxes/retrobsd/games/lib/
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/games/monop'
+make[3]: Entering directory '/home/osboxes/retrobsd/src/games/pom'
+install pom /home/osboxes/retrobsd/games/
+install -m 644 pom.0 /home/osboxes/retrobsd/share/man/cat6/
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/games/pom'
+make[3]: Entering directory '/home/osboxes/retrobsd/src/games/pig'
+install pig /home/osboxes/retrobsd/games/
+install -m 644 pig.0 /home/osboxes/retrobsd/share/man/cat6/
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/games/pig'
+make[3]: Entering directory '/home/osboxes/retrobsd/src/games/quiz'
+install quiz /home/osboxes/retrobsd/games/
+install -m 644 quiz.0 /home/osboxes/retrobsd/share/man/cat6/
+cp -r quiz.k /home/osboxes/retrobsd/games/lib
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/games/quiz'
+make[3]: Entering directory '/home/osboxes/retrobsd/src/games/robots'
+install robots /home/osboxes/retrobsd/games/
+install -m 644 robots.0 /home/osboxes/retrobsd/share/man/cat6/
+install -c -m 644 /dev/null /home/osboxes/retrobsd/games/lib/robots_roll
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/games/robots'
+make[3]: Entering directory '/home/osboxes/retrobsd/src/games/rogue'
+install rogue /home/osboxes/retrobsd/games/
+cp rogue.0 /home/osboxes/retrobsd/share/man/cat6/
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/games/rogue'
+make[3]: Entering directory '/home/osboxes/retrobsd/src/games/sail'
+install sail /home/osboxes/retrobsd/games/
+cp sail.0 /home/osboxes/retrobsd/share/man/cat6/
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/games/sail'
+make[3]: Entering directory '/home/osboxes/retrobsd/src/games/snake'
+install snake /home/osboxes/retrobsd/games/
+install snscore /home/osboxes/retrobsd/games/
+install -m 644 snake.0 /home/osboxes/retrobsd/share/man/cat6/
+ln -f /home/osboxes/retrobsd/share/man/cat6/snake.0 /home/osboxes/retrobsd/share/man/cat6/snscore.0
+install -c -m 644 /dev/null /home/osboxes/retrobsd/games/lib/snakerawscores
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/games/snake'
+make[3]: Entering directory '/home/osboxes/retrobsd/src/games/trek'
+install trek /home/osboxes/retrobsd/games/
+cp trek.0 /home/osboxes/retrobsd/share/man/cat6/
+make[3]: Leaving directory '/home/osboxes/retrobsd/src/games/trek'
+for i in banner aclock arithmetic bcd cfscores factor fish morse number ppt wump canfield primes rain worm worms; do \
+		install $i /home/osboxes/retrobsd/games/$i; done
+for i in *.6; do \
+		nroff -man -h -Tascii $i > /home/osboxes/retrobsd/share/man/cat6/`basename $i .6`.0; done
+Makefile:43: recipe for target 'install' failed
+Makefile:22: recipe for target 'install' failed
+Makefile:38: recipe for target 'all' failed

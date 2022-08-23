@@ -1,0 +1,90 @@
+AUTOCONFIG(8)		    System Manager's Manual		 AUTOCONFIG(8)
+
+
+
+NNAAMMEE
+       autoconfig - configure the running system to the	hardware
+
+SSYYNNOOPPSSIISS
+       aauuttooccoonnffiigg [[--ii iiffiillee]] [[--nn nnffiillee]]	[[--kk kkffiillee]] [[--vv]]	[[--dd]] [[--cc]]
+
+DDEESSCCRRIIPPTTIIOONN
+       _A_u_t_o_c_o_n_f_i_g is called by _i_n_i_t(8) to configure the	currently running sys-
+       tem.  Init checks the exit status of autoconfig	to  determine  if  the
+       configuration  was  successful.	 _A_u_t_o_c_o_n_f_i_g  reads  the	 device	 table
+       _/_e_t_c_/_d_t_a_b for a list of devices which may be on the system.   It	 first
+       verifies	 that  the  kernel  has	an attach routine for each device (and
+       therefore has a device handler) and that	the kernel has	a  probe  rou-
+       tine.   It  then	 checks	each of	these devices to see if	it is present,
+       and if it is, attempts to make it interrupt  (if	 possible)  to	verify
+       that  the interrupt vector is correct.  The interrupt vector is checked
+       to see that it has not previously been used.  An	interrupt through  any
+       of the device's consecutive vectors is sufficient.
+
+       Devices	which  use programmable	vectors	(MSCP and TMSCP) are permitted
+       to have a value of 0 in the dtab	 vector	 field.	  This	special	 value
+       tells autoconfig	to call	the kernel's get next available	vector routine
+       and assign that to the device.  For programmable	vector devices if  the
+       dtab vector field is non	0 then the value specified in the dtab file is
+       used.  In both cases the	driver is called at its	xxVec()	 routine  with
+       the vector being	assigned to the	device.
+
+       If  the	address	and vector are correct,	it then	attaches the device by
+       passing the address and unit number to the kernel's attach routine  and
+       setting up the interrupt	vector according to the	interrupt handlers and
+       priority	listed in the device table.  If	the unit number	is given as  a
+       '?'  in	the  device table, it will be assigned the next	available unit
+       number if the device exists.  If	the device is not present or the  vec-
+       tor  is	incorrect,  and	 if the	unit number was	specified (not a '?'),
+       then the	kernel is notified that	that unit is not  present,  preventing
+       accesses	to a nonexistent device	address.
+
+       There  are  only	 a few flags which are mostly useful for debugging but
+       for completeness, here they are.
+
+       --ii _i_f_i_l_e	 Use _i_f_i_l_e instead of _/_e_t_c_/_d_t_a_b	as the device table.
+
+       --nn _n_f_i_l_e	 Use _n_f_i_l_e instead of _/_u_n_i_x for	finding	the  namelist  of  the
+		 currently running kernel.
+
+       --kk _k_f_i_l_e	 The  file  _k_f_i_l_e should be used instead of _/_d_e_v_/_k_m_e_m to alter
+		 and read kernel memory.
+
+       --vv	 Verbose output, indicates reason for rejecting	any device  in
+		 the   device  table.	Normally  only	attached  devices  are
+		 reported.
+
+       --cc	 Report	error messages for devices skipped because of problems
+		 with their interrupt vectors.
+
+       --dd	 Turn  on debugging mode.  Shows many gory details of autocon-
+		 fig's internal	processing.
+
+BBUUGGSS
+       Devices of the same type	must be	listed with ascending unit numbers  or
+       with wildcards.
+
+       Disks  that could be root devices must have their addresses and vectors
+       initialized in the kernel; the kernel uses a root attach	entry  in  the
+       block  device  switch  to allow disk drivers to do any probes necessary
+       before autoconfiguration.
+
+       Must be run only	by _i_n_i_t(8).  There is a	flag set in  the  kernel  that
+       autoconfig has already run, running autoconfig a	second time results in
+       the error:
+
+       "namelist doesn't match running kernel."
+	      Autoconfig attempts to open /dev/kmem for	write.	If the	kernel
+	      is in securelevel	1 or higher the	open of	/dev/kmem will fail.
+
+FFIILLEESS
+       /etc/dtab	   device table
+       /unix
+       /dev/kmem
+
+SSEEEE AALLSSOO
+       ucall(2), nlist(3), dtab(5)
+
+
+
+3rd Berkeley Distribution      December	30, 1992		 AUTOCONFIG(8)

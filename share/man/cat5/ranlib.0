@@ -1,0 +1,33 @@
+RANLIB(5)		      File Formats Manual		     RANLIB(5)
+
+
+
+NNAAMMEE
+       ranlib -	archive	(library) table-of-contents format
+
+SSYYNNOOPPSSIISS
+       ##iinncclluuddee	<<rraannlliibb..hh>>
+
+DDEESSCCRRIIPPTTIIOONN
+       The  archive  table-of-contents	command	_r_a_n_l_i_b creates a table of con-
+       tents for archives, containing object files, to be used	by  the	 link-
+       editor _l_d(1)_.  It operates on archives created with the utility _a_r(1)_.
+
+       The  _R_a_n_l_i_b  function  prepends a new file to the archive which has two
+       separate	parts.	The first part is a standard archive header, which has
+       a special name field,  "__.SYMDEF".
+
+       The  second part	is a list of ranlib structures of variable size.  Each
+       of the ranlib structures	consists of a sequence of records,  terminated
+       by 1, 2,	3 or 4 zero bytes (to align to word boundary).
+
+       Every  record consists of a byte	with name length, a word specifying an
+       offset from the beginning of the	archive	to the start  of  the  archive
+       file which defines the symbol, and a symbol name	of given length.
+
+SSEEEE AALLSSOO
+       _a_r(1)_, _r_a_n_l_i_b(1)
+
+
+
+4.3 Berkeley Distribution	 May 10, 1991			     RANLIB(5)

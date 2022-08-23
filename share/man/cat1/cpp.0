@@ -1,0 +1,106 @@
+CPP(1)			  BSD General Commands Manual			CPP(1)
+
+NNAAMMEE
+     ccpppp -- C preprocessor
+
+SSYYNNOOPPSSIISS
+     ccpppp [--CCddMMttVVvv] [--DD _m_a_c_r_o_[_=_v_a_l_u_e_]] [--II _p_a_t_h]	[--ii _f_i_l_e] [--SS _p_a_t_h] [--UU	_m_a_c_r_o]
+	 [_i_n_f_i_l_e | _-] [_o_u_t_f_i_l_e]
+
+DDEESSCCRRIIPPTTIIOONN
+     The ccpppp utility is	a macro	preprocessor used by the pcc(1)	compiler.  It
+     is	used to	include	header files, expand macro definitions,	and perform
+     conditional compilation.
+
+     The _i_n_f_i_l_e	input file is optional.	 If not	provided or the	file name is
+     "-" (dash), ccpppp reads its initial file from standard input.  The _o_u_t_f_i_l_e
+     output file is also optional.  It writes by default to standard output.
+
+     The options are as	follows:
+
+     --?	     Show command line usage for ccpppp.
+
+     --CC	     Do	not discard comments.
+
+     --DD	_m_a_c_r_o_[_=_v_a_l_u_e_]
+	     Fake a definition at the beginning	by using ``#define
+	     _m_a_c_r_o_=_v_a_l_u_e''.  If	_v_a_l_u_e is not set on command-line, then define
+	     it	as 1.
+
+     --ddMM     Print list	of ``#define'' statements to standard output for all
+	     defined macros other than builtin macros (see below).  The	normal
+	     results of	preprocessing are not output.
+
+     --II	_p_a_t_h
+	     Add _p_a_t_h to the list of directories containing needed header
+	     files.  This may be used to override system include directories
+	     (see --SS option).  --II may be specified multiple times.
+
+     --ii	_f_i_l_e
+	     Include a file at the beginning by	using ``#include _f_i_l_e''.
+
+     --MM	     Generate dependencies for make(1).
+
+     --PP	     Inhibit generation	of line	markers.  This is sometimes useful
+	     when running the preprocessor on something	other than C code.
+
+     --SS	_p_a_t_h
+	     Add _p_a_t_h to the list of system directories	containing needed
+	     header files.  The	--SS option may be specified multiple times.
+	     Note: ccpppp does not	have a default include directory defined.
+
+     --tt	     Traditional cpp syntax.  Do not define the	__TIME__, __DATE__,
+	     __STDC__, and __STDC_VERSION__ macros.
+
+     --UU	_m_a_c_r_o
+	     Undefine a	macro at the beginning by using	``#undef _m_a_c_r_o''.
+
+     --VV	     Verbose debugging output.	--VV can be repeated for further
+	     details.
+
+     --vv	     Display version.
+
+   BBuuiillttiinn MMaaccrrooss
+     A few macros are interpreted inside the ccpppp program:
+
+     ____DDAATTEE____  Expands to the date in abbreviated month, day, and year format
+     from ctime(3) in quotes.
+
+     ____FFIILLEE____  Expands to the name of the current input	file in	quotes.	 When
+     read from standard	input, it expands to "<stdin>".
+
+     ____LLIINNEE____  Expands to the line number of the current line containing the
+     macro.
+
+     ____SSTTDDCC____  Expands to the constant 1.  This	means the compiler conforms to
+     ISO/IEC 9899:1990 (``ISO C90'') (also known as ``C90'').
+
+     ____SSTTDDCC__VVEERRSSIIOONN____  Expands to ``199901L'' which indicates that ccpppp sup-
+     ports ISO/IEC 9899:1999 (``ISO C99'') (commonly referred to as ``C99'').
+
+     ____TTIIMMEE____  Expands to the time in hour, minutes, and seconds from ctime(3)
+     in	quotes.
+
+     Also see the --tt option.
+
+EEXXIITT SSTTAATTUUSS
+     The ccpppp utility exits with	one of the following values:
+
+     0	     Successfully finished.
+
+     1	     An	error occurred.
+
+SSEEEE AALLSSOO
+     as(1), ccom(1), pcc(1)
+
+HHIISSTTOORRYY
+     The ccpppp command comes from	the original Portable C	Compiler by S. C.
+     Johnson, written in the late 70's.	 The code originates from the V6 pre-
+     processor with some additions from	V7 cpp and ansi/c99 support.
+
+     A lot of the PCC code was rewritten by Anders Magnusson.
+
+     This product includes software developed or owned by Caldera Interna-
+     tional, Inc.
+
+BSD			      September	17, 2007			   BSD
